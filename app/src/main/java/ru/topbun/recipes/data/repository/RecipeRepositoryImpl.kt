@@ -2,6 +2,8 @@ package ru.topbun.recipes.data.repository
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.LiveData
 import ru.topbun.recipes.data.database.RecipeDao
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
 import ru.topbun.recipes.domain.entity.RecipeModel
@@ -12,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.Date
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
@@ -21,9 +24,7 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override fun getListRecipe() = recipeDao.getListRecipes()
 
-    override suspend fun getRecipe(url: String): DetailRecipeModel {
-        TODO("Not yet implemented")
-    }
+    override fun getRecipe(query: String) = recipeDao.getRecipe(query)
 
     override suspend fun addRecipe(recipe: RecipeModel) {
         recipeDao.addRecipe(recipe)

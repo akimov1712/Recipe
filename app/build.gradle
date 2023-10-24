@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '18'
     }
+    buildFeatures{
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -44,7 +47,10 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2"
     ksp "com.google.dagger:dagger-compiler:$dagger2"
 
-
+//    View
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 //    JSON
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
@@ -58,7 +64,7 @@ dependencies {
 //    ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
