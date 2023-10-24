@@ -6,7 +6,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ru.topbun.recipes.App
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityMainBinding
@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[ViewModel::class.java] }
-    private val recipeAdapter by lazy { RecipeAdapter(this) }
+
+    @Inject
+    lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
