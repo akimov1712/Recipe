@@ -1,17 +1,12 @@
 package ru.topbun.recipes.domain.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "detailRecipes")
+
+@Parcelize
 data class DetailRecipeModel(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val name: String,
-    val descr: String,
-    val category: String,
-    val preview: String,
-    val time: String,
-    val countPortions: Int,
-    val urlFullRecipe: String
-)
+    val id: Int
+): Parcelable

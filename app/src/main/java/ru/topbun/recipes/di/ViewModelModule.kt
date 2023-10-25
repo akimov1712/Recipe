@@ -3,15 +3,15 @@ package ru.topbun.recipes.di
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.topbun.recipes.presentation.ViewModel
+import ru.topbun.recipes.presentation.main.MainViewModel
 
 
 @Module
 interface ViewModelModule {
 
     @IntoMap
-    @ViewModelKey(ViewModel::class)
+    @ViewModelKey(MainViewModel::class)
     @Binds
-    fun bindAdsViewModel(impl: ViewModel): androidx.lifecycle.ViewModel
+    fun bindAdsViewModel(impl: MainViewModel): androidx.lifecycle.ViewModel
 
 }

@@ -1,9 +1,10 @@
 package ru.topbun.recipes.di
 
 import android.app.Application
-import ru.topbun.recipes.presentation.MainActivity
+import ru.topbun.recipes.presentation.main.MainActivity
 import dagger.BindsInstance
 import dagger.Component
+import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 
 @ApplicationScope
 @Component(
@@ -16,6 +17,7 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
+    fun inject(activity: DetailRecipeActivity)
 
     @Component.Factory
     interface Factory{

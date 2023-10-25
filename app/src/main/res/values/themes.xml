@@ -3,7 +3,31 @@
     <style name="Base.Theme.RecipeGroove" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">#FF3030</item>
     </style>
 
     <style name="Theme.RecipeGroove" parent="Base.Theme.RecipeGroove" />
+
+    <style name="TextTabLayoutHome" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TabLayout">
+        <item name="tabMode">fixed</item>
+<!--        <item name="tabIndicator">@drawable/background_tab_indicator</item>-->
+        <item name="tabIndicatorColor">@color/black</item>
+        <item name="tabRippleColor">@color/white</item>
+        <item name="tabTextAppearance">@style/TextTabLayoutProfile</item>
+        <item name="tabTextColor">#A6000000</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+    </style>
+
+    <style name="TextTabLayoutProfile" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.devtools.ksp'
-
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -35,20 +36,30 @@ android {
     buildFeatures{
         viewBinding true
     }
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {
 
     def room_version = "2.5.1"
     def dagger2 = "2.48"
+    def nav_version = "2.5.3"
 
 //    Dagger
-
     implementation "com.google.dagger:dagger:$dagger2"
     ksp "com.google.dagger:dagger-compiler:$dagger2"
 
 //    View
     implementation 'com.squareup.picasso:picasso:2.1.1'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+//    Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
 //    JSON
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")

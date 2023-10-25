@@ -6,13 +6,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import ru.topbun.recipes.data.database.RecipeDao
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.entity.RecipeResponseModel
 import ru.topbun.recipes.domain.repository.RecipeRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.entity.RecipeModel
 import java.io.IOException
 import java.util.Date
 import javax.inject.Inject

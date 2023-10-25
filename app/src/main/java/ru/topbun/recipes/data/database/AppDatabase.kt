@@ -10,8 +10,7 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 
 @Database(entities = [
     RecipeModel::class,
-    DetailRecipeModel::class
-], version = 3, exportSchema = false)
+], version = 5, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun dao(): RecipeDao

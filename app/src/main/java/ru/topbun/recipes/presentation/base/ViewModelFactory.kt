@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation
+package ru.topbun.recipes.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

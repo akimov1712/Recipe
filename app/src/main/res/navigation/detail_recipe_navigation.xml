@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_recipe_navigation"
+    app:startDestination="@id/detailRecipeActivity">
+
+    <activity
+        android:id="@+id/detailRecipeActivity"
+        android:name="ru.topbun.recipes.presentation.detail.DetailRecipeActivity"
+        android:label="activity_detail_recipe"
+        tools:layout="@layout/activity_detail_recipe" />
+    <fragment
+        android:id="@+id/ingredientsFragment"
+        android:name="ru.topbun.recipes.presentation.detail.IngredientsFragment"
+        android:label="fragment_ingridients"
+        tools:layout="@layout/fragment_ingridients" />
+    <fragment
+        android:id="@+id/stepRecipeFragment"
+        android:name="ru.topbun.recipes.presentation.detail.StepRecipeFragment"
+        android:label="fragment_step_recipe"
+        tools:layout="@layout/fragment_step_recipe" />
+</navigation>

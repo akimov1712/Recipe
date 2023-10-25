@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.adapter
+package ru.topbun.recipes.presentation.main.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.topbun.recipes.databinding.ItemRecipeBinding
