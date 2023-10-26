@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.topbun.recipes.databinding.ItemIngrBinding
 
-class IngrAdapter: ListAdapter<Map<String, Int>, IngrViewHolder>(IngrDiffCallback()) {
+class IngrAdapter: ListAdapter<Pair<String, String>, IngrViewHolder>(IngrDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngrViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,7 +16,8 @@ class IngrAdapter: ListAdapter<Map<String, Int>, IngrViewHolder>(IngrDiffCallbac
     override fun onBindViewHolder(holder: IngrViewHolder, position: Int) {
         val item = getItem(position)
         with(holder.binding){
-
+            tvName.text = item.first
+            tvCount.text = item.second
         }
     }
 }

@@ -8,19 +8,30 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
+        android:background="@drawable/background_edit_text"
         android:drawableLeft="@drawable/icon_search"
         android:drawablePadding="10dp"
-        android:paddingStart="10dp"
-        android:background="@drawable/background_edit_text"
         android:fontFamily="@font/nunito_medium"
+        android:hint="Борщ"
+        android:paddingStart="10dp"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_favorite_recipes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_favorite_recipes"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/icon_favorite_enable"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText" />
 
     <ImageView
         android:id="@+id/btn_clear"
@@ -53,7 +64,7 @@
         android:fontFamily="@font/nunito_bold"
         android:text="Рецепт не найден"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

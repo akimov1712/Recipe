@@ -13,5 +13,6 @@ data class RecipeModel(
     val time: String,
     val category: String,
     val countPortion: String,
+    val isFavorite: Boolean = false,
     val urlFullRecipe: String
 )

@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, it)
             startActivity(intent)
         }
+        recipeAdapter.setOnFavoriteClickListener = {
+            viewModel.updateFavoriteRecipe(it)
+        }
         binding.rvRecipes.adapter = recipeAdapter
     }
 
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     binding.btnClear.visibility = View.VISIBLE
                 } else {
                     binding.btnClear.visibility = View.GONE
+                    binding.rvRecipes.scrollToPosition(0)
                 }
             }
         })
@@ -78,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                     is MainState.RecipeList -> {
                         if (it.recipeList.isEmpty()) tvNotFount.visibility = View.VISIBLE else tvNotFount.visibility = View.GONE
                         recipeAdapter.submitList(it.recipeList)
-                        rvRecipes.scrollToPosition(0)
                     }
                     else -> {}
                 }
@@ -91,6 +94,10 @@ class MainActivity : AppCompatActivity() {
             btnClear.setOnClickListener {
                 editText.text.clear()
                 rvRecipes.scrollToPosition(0)
+            }
+            btnFavoriteRecipes.setOnClickListener {
+                val intent = Intent(this@MainActivity, FavoriteRecipeActivity::class.java)
+                startActivity(intent)
             }
         }
     }

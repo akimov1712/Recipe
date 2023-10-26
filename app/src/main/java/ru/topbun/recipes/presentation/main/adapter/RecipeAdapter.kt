@@ -1,6 +1,7 @@
 package ru.topbun.recipes.presentation.main.adapter
 
 import android.app.Application
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -16,6 +17,7 @@ class RecipeAdapter @Inject constructor(private val application: Application): L
 ) {
 
     var setOnRecipeClickListener: ((String) -> Unit)? = null
+    var setOnFavoriteClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -38,8 +40,16 @@ class RecipeAdapter @Inject constructor(private val application: Application): L
             } else {
                 tvTime.text = item.time
             }
-            Picasso.with(application).load(item.preview).into(ivPreview)
+            Picasso.get().load(item.preview).into(ivPreview)
             holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe) }
+            if (item.isFavorite){
+                btnFavorite.setImageResource(R.drawable.icon_favorite_enable)
+            } else {
+                btnFavorite.setImageResource(R.drawable.icon_favorite_disable)
+            }
+            btnFavorite.setOnClickListener {
+                setOnFavoriteClickListener?.invoke(item.id)
+            }
         }
     }
 }

@@ -3,18 +3,18 @@ package ru.topbun.recipes.presentation.detail.stepDetailRecipe
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class StepRecipeDiffCallback: DiffUtil.ItemCallback<Map<String, String>>() {
+class StepRecipeDiffCallback: DiffUtil.ItemCallback<Pair<String, String>>() {
 
     override fun areItemsTheSame(
-        oldItem: Map<String, String>,
-        newItem: Map<String, String>
+        oldItem: Pair<String, String>,
+        newItem: Pair<String, String>
     ): Boolean {
         return false
     }
 
     override fun areContentsTheSame(
-        oldItem: Map<String, String>,
-        newItem: Map<String, String>
+        oldItem: Pair<String, String>,
+        newItem: Pair<String, String>
     ): Boolean {
         return false
     }
