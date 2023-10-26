@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main
+package ru.topbun.recipes.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import ru.topbun.recipes.App
-import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityFavoriteRecipeBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
+import ru.topbun.recipes.presentation.main.MainViewModel
 import ru.topbun.recipes.presentation.main.adapter.RecipeAdapter
 import javax.inject.Inject
 

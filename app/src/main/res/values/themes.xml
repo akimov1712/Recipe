@@ -3,7 +3,7 @@
     <style name="Base.Theme.RecipeGroove" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:statusBarColor">#EE5757</item>
+        <item name="android:statusBarColor">#DF4242</item>
     </style>
 
     <style name="Theme.RecipeGroove" parent="Base.Theme.RecipeGroove" />

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="50dp"
             android:indeterminateTint="#ED4D4D"
             android:background="@drawable/background_progressbar"
             android:translationZ="100dp"

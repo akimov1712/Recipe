@@ -8,7 +8,7 @@ import ru.topbun.recipes.presentation.SplashActivity
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.detail.IngredientsFragment
 import ru.topbun.recipes.presentation.detail.StepRecipeFragment
-import ru.topbun.recipes.presentation.main.FavoriteRecipeActivity
+import ru.topbun.recipes.presentation.FavoriteRecipeActivity
 
 @ApplicationScope
 @Component(

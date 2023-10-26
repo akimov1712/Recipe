@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import ru.topbun.recipes.App
 import ru.topbun.recipes.databinding.ActivityMainBinding
+import ru.topbun.recipes.presentation.FavoriteRecipeActivity
 import ru.topbun.recipes.presentation.main.adapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
