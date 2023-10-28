@@ -12,11 +12,11 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 import javax.inject.Inject
 
 
-class RecipeAdapter @Inject constructor(private val application: Application): ListAdapter<RecipeModel, RecipeViewHolder>(
+class RecipeAdapter @Inject constructor(): ListAdapter<RecipeModel, RecipeViewHolder>(
     RecipeDiffCallback()
 ) {
 
-    var setOnRecipeClickListener: ((String) -> Unit)? = null
+    var setOnRecipeClickListener: ((String, String) -> Unit)? = null
     var setOnFavoriteClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -41,7 +41,7 @@ class RecipeAdapter @Inject constructor(private val application: Application): L
                 tvTime.text = item.time
             }
             Picasso.get().load(item.preview).into(ivPreview)
-            holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe) }
+            holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe, item.preview) }
             if (item.isFavorite){
                 btnFavorite.setImageResource(R.drawable.icon_favorite_enable)
             } else {

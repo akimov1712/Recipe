@@ -71,6 +71,7 @@
         <TextView
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
+            android:maxWidth="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
@@ -84,7 +85,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Супы" />
+            tools:text="Выпечка и дисерты" />
 
         <ImageButton
             android:id="@+id/btn_favorite"

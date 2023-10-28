@@ -41,9 +41,10 @@ class FavoriteRecipeActivity : AppCompatActivity() {
     }
 
     private fun setAdapter(){
-        recipeAdapter.setOnRecipeClickListener = {
+        recipeAdapter.setOnRecipeClickListener = { url, preview ->
             val intent = Intent(this, DetailRecipeActivity::class.java)
-            intent.putExtra(DetailRecipeActivity.EXTRA_URL, it)
+            intent.putExtra(DetailRecipeActivity.EXTRA_URL, url)
+            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
             startActivity(intent)
         }
         recipeAdapter.setOnFavoriteClickListener = {

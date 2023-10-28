@@ -3,6 +3,7 @@ package ru.topbun.recipes.presentation.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -39,6 +40,9 @@ class DetailRecipeActivity : AppCompatActivity() {
     private fun getData(){
         val url = intent.getStringExtra(EXTRA_URL)
         url?.let { viewModel.getDetailRecipe(it) }
+
+        val preview = intent.getStringExtra(EXTRA_PREVIEW)
+        Picasso.get().load(preview).error(R.color.white).into(binding.ivPreview)
     }
 
     private fun observeViewModel(){
@@ -47,8 +51,8 @@ class DetailRecipeActivity : AppCompatActivity() {
                 state.observe(this@DetailRecipeActivity){
                     when(it){
                         is DetailRecipeState.DetailRecipe -> {
+                            supportActionBar?.title = it.detailRecipeItem.name
                             setupViewPager(it.detailRecipeItem)
-                            tvToolbarName.text = it.detailRecipeItem.name
                             tvName.text = it.detailRecipeItem.name
                             tvCategory.text = "Категория: ${it.detailRecipeItem.category}"
                             tvTime.text = "Время: ${it.detailRecipeItem.time}"
@@ -59,14 +63,12 @@ class DetailRecipeActivity : AppCompatActivity() {
                                 tvProteins.text = it.detailRecipeItem.proteins + "г"
                                 tvCarbs.text = it.detailRecipeItem.carbohydrates + "г"
                             }
-                            Picasso.get().load(it.detailRecipeItem.preview)
-                                .error(R.drawable.background_image).into(binding.ivPreview)
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.VISIBLE
                             clError.visibility = View.GONE
                         }
                         is DetailRecipeState.ErrorGetDetailRecipe -> {
-                            tvToolbarName.text = "Ошибка"
+                            supportActionBar?.title = "Ошибка"
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.GONE
                             clError.visibility = View.VISIBLE
@@ -79,13 +81,11 @@ class DetailRecipeActivity : AppCompatActivity() {
 
     private fun setViews(){
         setListenersInView()
+        setToolbar()
     }
 
     private fun setListenersInView(){
         with(binding){
-            btnBack.setOnClickListener {
-                finish()
-            }
             btnRetryLoad.setOnClickListener {
                 progressBar.visibility = View.VISIBLE
                 intent.getStringExtra(EXTRA_URL)?.let { url ->
@@ -129,8 +129,24 @@ class DetailRecipeActivity : AppCompatActivity() {
             })
     }
 
+    private fun setToolbar(){
+        supportActionBar?.title = "Загрузка..."
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_back)
+    }
+
     companion object {
         const val EXTRA_URL = "extra_url"
+        const val EXTRA_PREVIEW = "extra_preview"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

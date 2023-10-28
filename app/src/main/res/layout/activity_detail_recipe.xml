@@ -30,43 +30,6 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="24dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="15dp"
-                android:background="@color/transparent"
-                android:src="@drawable/icon_back"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_toolbar_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_bold"
-                android:maxLength="30"
-                android:singleLine="true"
-                android:text="Загрузка..."
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,195 +81,204 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/iv_preview"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="5dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="8dp"
-                tools:src="@drawable/image_test" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/nunito_bold"
-                android:text="Загрузка..."
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/tv_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name">
-
-                <TextView
-                    android:id="@+id/tv_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="Категория:"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="Время:"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/tv_count_portions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="Кол-во порций:"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/background_kkal"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                android:id="@+id/cl_detail_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/textView"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="На 100 грамм"
-                    android:textColor="@color/black"
-                    android:textSize="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_preview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Загрузка..."
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginHorizontal="15dp"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name">
 
-                    <TableRow>
+                    <TextView
+                        android:id="@+id/tv_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_medium"
+                        android:text="Категория:"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:text="Ккал"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_medium"
+                        android:text="Время:"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:text="Белки"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/tv_count_portions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_medium"
+                        android:text="Кол-во порций:"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:text="Жиры"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:text="Углев"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_kkal"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-                    </TableRow>
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/nunito_medium"
+                        android:text="На порцию"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TableRow>
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-                        <TextView
-                            android:id="@+id/tv_kkal"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp"
-                            tools:text="156" />
+                        <TableRow>
 
-                        <TextView
-                            android:id="@+id/tv_proteins"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp"
-                            tools:text="11 г" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:text="Ккал"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
 
-                        <TextView
-                            android:id="@+id/tv_fats"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp"
-                            tools:text="12 г" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:text="Белки"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
 
-                        <TextView
-                            android:id="@+id/tv_carbs"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/nunito_medium"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp"
-                            tools:text="5 г" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:text="Жиры"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
 
-                    </TableRow>
+                            <TextView
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:text="Углев"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
 
-                </TableLayout>
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/tv_kkal"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                tools:text="156" />
+
+                            <TextView
+                                android:id="@+id/tv_proteins"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                tools:text="11 г" />
+
+                            <TextView
+                                android:id="@+id/tv_fats"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                tools:text="12 г" />
+
+                            <TextView
+                                android:id="@+id/tv_carbs"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nunito_medium"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                tools:text="5 г" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -318,7 +290,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_preview"
+                app:layout_constraintTop_toBottomOf="@+id/cl_detail_information"
                 app:tabTextAppearance="@style/TextTabLayoutHome">
 
                 <com.google.android.material.tabs.TabItem
@@ -338,7 +310,7 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/container_viewPager"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

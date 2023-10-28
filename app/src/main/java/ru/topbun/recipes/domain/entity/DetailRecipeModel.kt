@@ -7,7 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class DetailRecipeModel(
     val name: String,
     val category: String,
-    val preview: String,
     val time: String,
     val countPortion: String,
     val kkal:String,

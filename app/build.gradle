@@ -56,6 +56,7 @@ dependencies {
 //    View
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
 
 //    Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

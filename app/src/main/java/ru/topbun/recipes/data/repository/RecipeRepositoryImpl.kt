@@ -24,7 +24,6 @@ class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao
 ): RecipeRepository {
 
-    override fun getListRecipe() = recipeDao.getListRecipes()
     override fun getListFavoriteRecipe() = recipeDao.getListFavoriteRecipes()
 
     override fun getRecipe(query: String) = recipeDao.getRecipe(query)
@@ -56,35 +55,29 @@ class RecipeRepositoryImpl @Inject constructor(
                     .userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
                     .get()
 
-                val name = doc.select(".entry-title").text()
-                val category = doc.select(".entry-category a").text()
+                val name = doc.select(".emotion-gl52ge").text()
+                val category = doc.select("li[itemprop=\"itemListElement\"]")[1].select("meta[itemprop=\"name\"]").attr("content")
+                val time = doc.select(".emotion-my9yfq").text()
+                val countPortion = doc.select(".emotion-1047m5l").text()
+                val kkal = doc.select("span[itemprop=\"calories\"]").text()
+                val fats = doc.select("span[itemprop=\"fatContent\"]").text()
+                val proteins = doc.select("span[itemprop=\"proteinContent\"]").text()
+                val carb = doc.select("span[itemprop=\"carbohydrateContent\"]").text()
 
-                val preview = doc.select(".entry-image.entry-image--big").attr("style")
-                val pattern = Regex("url\\(([^)]+)\\)")
-                val matchResult = pattern.find(preview)
-                val imageUrl = matchResult?.groupValues?.get(1) ?: ""
-
-                val time = doc.select("span[itemprop=\"totalTime\"]").text()
-                val countPortion = doc.select("input[class=\"js-ingredients-serves\"]").attr("value")
-                val kkal = doc.select("span[itemprop=\"calories\"] .strong").text()
-                val fats = doc.select("span[itemprop=\"fatContent\"] .strong").text()
-                val proteins = doc.select("span[itemprop=\"proteinContent\"] .strong").text()
-                val carb = doc.select("span[itemprop=\"carbohydrateContent\"] .strong").text()
-
-                doc.select("li[itemprop=\"recipeIngredient\"]").forEach {
-                    val name = it.select(".ingredients__name").text()
-                    var count = it.select(".ingredients__count").text()
+                doc.select(".emotion-7yevpr").forEach {
+                    val name = it.select("span[itemprop=\"recipeIngredient\"]").text()
+                    var count = it.select(".emotion-bsdd3p").text()
                     if (count.isNullOrBlank()) count = "По вкусу"
                     ingrList.add(Pair(name, count))
                 }
 
-                doc.select("li[itemprop=\"recipeInstructions\"]").forEach {
-                    val descr = it.select(".recipe-steps__text").text()
-                    val image = it.select(".recipe-steps__photo a").attr("href")
+                doc.select("div[itemprop=\"recipeInstructions\"]").forEach {
+                    val descr = it.select(".emotion-wdt5in").text()
+                    val image = it.select(".emotion-ducv57").attr("src")
                     stepRecipeList.add(Pair(descr, image))
                 }
 
-                DetailRecipeModel(name, category, imageUrl, time, countPortion, kkal, fats, proteins, carb, ingrList, stepRecipeList)
+                DetailRecipeModel(name, category, time, countPortion, kkal, fats, proteins, carb, ingrList, stepRecipeList)
             }
 
             return result.await()

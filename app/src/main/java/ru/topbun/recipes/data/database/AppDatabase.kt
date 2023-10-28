@@ -10,7 +10,7 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 
 @Database(entities = [
     RecipeModel::class,
-], version = 3, exportSchema = false,
+], version = 5, exportSchema = false,
 //    autoMigrations = [
 //        AutoMigration (from = 1, to = 2)
 //    ]

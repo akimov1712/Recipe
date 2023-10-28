@@ -5,19 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetListFavoriteRecipeUseCase
-import ru.topbun.recipes.domain.useCases.GetListRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
-import ru.topbun.recipes.presentation.main.MainState
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
-    private val getListRecipeUseCase: GetListRecipeUseCase,
     private val getRecipeUseCase: GetRecipeUseCase,
     private val getRecipeFavoriteListUseCase: GetListFavoriteRecipeUseCase,
     private val initRecipesUseCase: InitRecipesUseCase
@@ -29,15 +27,13 @@ class MainViewModel @Inject constructor(
 
     val recipeFavoriteList = getRecipeFavoriteListUseCase()
 
-    fun getListRecipe(){
-        getListRecipeUseCase().observeForever {
-            _state.value = MainState.RecipeList(it)
-        }
-    }
+    private val _recipeList = MutableLiveData<List<RecipeModel>>()
+    val recipeList: LiveData<List<RecipeModel>>
+        get() = _recipeList
 
     fun getRecipeQuery(query: String){
         getRecipeUseCase(query).observeForever {
-            _state.value = MainState.RecipeList(it)
+            _recipeList.value = it
         }
     }
 
@@ -54,9 +50,4 @@ class MainViewModel @Inject constructor(
             initRecipesUseCase()
         }
     }
-
-    init {
-        getListRecipe()
-    }
-
 }

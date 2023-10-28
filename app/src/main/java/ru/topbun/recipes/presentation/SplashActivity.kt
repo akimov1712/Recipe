@@ -32,6 +32,7 @@ class SplashActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.hide()
         viewModel.initRecipes()
         CoroutineScope(Dispatchers.Main).launch{
             while (true){

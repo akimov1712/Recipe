@@ -6,7 +6,6 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 
 interface RecipeRepository {
 
-    fun getListRecipe(): LiveData<List<RecipeModel>>
     fun getListFavoriteRecipe(): LiveData<List<RecipeModel>>
     fun getRecipe(query: String): LiveData<List<RecipeModel>>
     suspend fun initRecipes()

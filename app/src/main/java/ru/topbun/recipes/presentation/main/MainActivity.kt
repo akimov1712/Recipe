@@ -34,8 +34,15 @@ class MainActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.hide()
         setViews()
         observeViewModel()
+        getData()
+    }
+
+    private fun getData(){
+        val query = binding.editText.text.toString()
+        viewModel.getRecipeQuery(query)
     }
 
     private fun setViews(){
@@ -45,9 +52,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAdapter(){
-        recipeAdapter.setOnRecipeClickListener = {
+        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
             val intent = Intent(this, DetailRecipeActivity::class.java)
-            intent.putExtra(DetailRecipeActivity.EXTRA_URL, it)
+            intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
+            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
             startActivity(intent)
         }
         recipeAdapter.setOnFavoriteClickListener = {
@@ -86,6 +94,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     else -> {}
                 }
+            }
+            viewModel.recipeList.observe(this@MainActivity){
+                if (it.isEmpty()) tvNotFount.visibility = View.VISIBLE else tvNotFount.visibility = View.GONE
+                recipeAdapter.submitList(it)
             }
         }
     }
