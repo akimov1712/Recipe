@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.adapter
+package ru.topbun.recipes.presentation.main.recipeAdapter
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.topbun.recipes.domain.entity.RecipeModel

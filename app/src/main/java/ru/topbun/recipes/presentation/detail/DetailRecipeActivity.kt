@@ -2,8 +2,6 @@ package ru.topbun.recipes.presentation.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -14,7 +12,6 @@ import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityDetailRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
 import ru.topbun.recipes.presentation.base.ViewModelFactory
-import ru.topbun.recipes.presentation.main.MainViewModel
 import javax.inject.Inject
 
 class DetailRecipeActivity : AppCompatActivity() {
@@ -51,9 +48,9 @@ class DetailRecipeActivity : AppCompatActivity() {
                 state.observe(this@DetailRecipeActivity){
                     when(it){
                         is DetailRecipeState.DetailRecipe -> {
-                            supportActionBar?.title = it.detailRecipeItem.name
                             setupViewPager(it.detailRecipeItem)
                             tvName.text = it.detailRecipeItem.name
+                            tvToolbarName.text = it.detailRecipeItem.name
                             tvCategory.text = "Категория: ${it.detailRecipeItem.category}"
                             tvTime.text = "Время: ${it.detailRecipeItem.time}"
                             tvCountPortions.text = "Кол-во порций: ${it.detailRecipeItem.countPortion}"
@@ -81,7 +78,6 @@ class DetailRecipeActivity : AppCompatActivity() {
 
     private fun setViews(){
         setListenersInView()
-        setToolbar()
     }
 
     private fun setListenersInView(){
@@ -91,6 +87,9 @@ class DetailRecipeActivity : AppCompatActivity() {
                 intent.getStringExtra(EXTRA_URL)?.let { url ->
                     viewModel.getDetailRecipe(url)
                 }
+            }
+            btnBack.setOnClickListener {
+                onBackPressed()
             }
         }
     }
@@ -129,24 +128,9 @@ class DetailRecipeActivity : AppCompatActivity() {
             })
     }
 
-    private fun setToolbar(){
-        supportActionBar?.title = "Загрузка..."
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_back)
-    }
-
     companion object {
         const val EXTRA_URL = "extra_url"
         const val EXTRA_PREVIEW = "extra_preview"
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }

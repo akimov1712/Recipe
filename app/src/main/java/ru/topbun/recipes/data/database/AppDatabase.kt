@@ -10,11 +10,7 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 
 @Database(entities = [
     RecipeModel::class,
-], version = 5, exportSchema = false,
-//    autoMigrations = [
-//        AutoMigration (from = 1, to = 2)
-//    ]
-)
+], version = 5, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun dao(): RecipeDao

@@ -4,73 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main.MainActivity">
+    tools:context=".presentation.MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/background_edit_text"
-        android:drawableLeft="@drawable/icon_search"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/nunito_medium"
-        android:hint="Борщ"
-        android:paddingStart="10dp"
-        android:inputType="textFilter"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_favorite_recipes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_favorite_recipes"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/icon_favorite_enable"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
-
-    <ImageView
-        android:id="@+id/btn_clear"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/icon_clear"
-        android:layout_marginEnd="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recipes"
+    <fragment
+        android:id="@+id/fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:spanCount="2"
-        tools:listitem="@layout/item_recipe" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/main_navigation" />
 
-    <TextView
-        android:id="@+id/tv_not_fount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Рецепт не найден"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:visibility="gone"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_menu"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:paddingHorizontal="20dp"
+        app:itemIconSize="28dp"
+        app:elevation="6dp"
+        app:backgroundTint="@color/white"
+        app:labelVisibilityMode="unlabeled"
+        app:itemActiveIndicatorStyle="@color/transparent"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/selector_color_icon_bottom_menu"
+        app:itemRippleColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText" />
+        app:menu="@menu/main_botton_menu"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

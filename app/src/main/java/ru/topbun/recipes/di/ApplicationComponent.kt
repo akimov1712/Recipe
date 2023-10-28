@@ -1,14 +1,17 @@
 package ru.topbun.recipes.di
 
 import android.app.Application
-import ru.topbun.recipes.presentation.main.MainActivity
+import ru.topbun.recipes.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import ru.topbun.recipes.presentation.SplashActivity
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.detail.IngredientsFragment
 import ru.topbun.recipes.presentation.detail.StepRecipeFragment
-import ru.topbun.recipes.presentation.FavoriteRecipeActivity
+import ru.topbun.recipes.presentation.main.category.CategoryFragment
+import ru.topbun.recipes.presentation.main.favorite.FavoriteFragment
+import ru.topbun.recipes.presentation.main.home.HomeFragment
+import ru.topbun.recipes.presentation.main.search.SearchFragment
 
 @ApplicationScope
 @Component(
@@ -20,12 +23,14 @@ import ru.topbun.recipes.presentation.FavoriteRecipeActivity
 )
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
     fun inject(activity: SplashActivity)
     fun inject(activity: DetailRecipeActivity)
-    fun inject(activity: FavoriteRecipeActivity)
     fun inject(fragment: IngredientsFragment)
     fun inject(fragment: StepRecipeFragment)
+    fun inject(fragment: FavoriteFragment)
+    fun inject(fragment: CategoryFragment)
+    fun inject(fragment: SearchFragment)
+    fun inject(fragment: HomeFragment)
 
     @Component.Factory
     interface Factory{

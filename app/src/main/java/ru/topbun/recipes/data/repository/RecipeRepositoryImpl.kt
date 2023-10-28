@@ -30,7 +30,8 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun initRecipes() {
         val countRecipes = recipeDao.getCountRecipesInDb()
-        if (countRecipes == 0){
+        if (countRecipes < 9000){
+            recipeDao.deleteRecipes()
             initRecipesFromJSON()
         }
         val sharedPreferences = application.applicationContext.getSharedPreferences("endInit", Context.MODE_PRIVATE)

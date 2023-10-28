@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main
+package ru.topbun.recipes.presentation.main.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
     private val getRecipeUseCase: GetRecipeUseCase,
@@ -21,8 +21,8 @@ class MainViewModel @Inject constructor(
     private val initRecipesUseCase: InitRecipesUseCase
 ): ViewModel() {
 
-    private val _state = MutableLiveData<MainState>()
-    val state: LiveData<MainState>
+    private val _state = MutableLiveData<HomeState>()
+    val state: LiveData<HomeState>
         get() = _state
 
     val recipeFavoriteList = getRecipeFavoriteListUseCase()

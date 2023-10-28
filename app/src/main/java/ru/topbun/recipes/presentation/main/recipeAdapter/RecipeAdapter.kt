@@ -1,7 +1,5 @@
-package ru.topbun.recipes.presentation.main.adapter
+package ru.topbun.recipes.presentation.main.recipeAdapter
 
-import android.app.Application
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

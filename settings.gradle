@@ -3,11 +3,11 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven { url "https://jitpack.io" }
+        maven { url 'https://jitpack.io' }
     }
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.id == "androidx.navigation.safeargs.kotlin") {
+            if (requested.id.id == 'androidx.navigation.safeargs.kotlin') {
                 useModule("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0")
             }
         }
@@ -18,8 +18,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
-
 rootProject.name = "RecipeGroove"
 include ':app'

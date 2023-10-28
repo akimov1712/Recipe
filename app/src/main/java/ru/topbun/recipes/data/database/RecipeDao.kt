@@ -28,4 +28,7 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE id=:id LIMIT 1")
     suspend fun getRecipeForId(id: Int): RecipeModel
 
+    @Query("DELETE FROM recipes")
+    suspend fun deleteRecipes()
+
 }

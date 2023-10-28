@@ -80,6 +80,7 @@
             android:gravity="start"
             android:paddingHorizontal="10dp"
             android:paddingVertical="2dp"
+            android:textSize="14dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
             app:layout_constraintHorizontal_bias="0.0"

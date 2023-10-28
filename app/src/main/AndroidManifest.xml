@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.FavoriteRecipeActivity"
+            android:name=".presentation.main.favorite.FavoriteRecipeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -35,7 +35,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait">
         </activity>

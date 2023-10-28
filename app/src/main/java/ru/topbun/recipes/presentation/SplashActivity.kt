@@ -3,19 +3,15 @@ package ru.topbun.recipes.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.App
-import ru.topbun.recipes.R
-import ru.topbun.recipes.data.repository.RecipeRepositoryImpl
 import ru.topbun.recipes.databinding.ActivitySplashBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
-import ru.topbun.recipes.presentation.main.MainActivity
-import ru.topbun.recipes.presentation.main.MainViewModel
+import ru.topbun.recipes.presentation.main.home.HomeViewModel
 import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java] }
     private val binding by lazy{ ActivitySplashBinding.inflate(layoutInflater)}
 
 
