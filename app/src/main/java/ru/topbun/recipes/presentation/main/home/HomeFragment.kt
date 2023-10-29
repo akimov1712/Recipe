@@ -1,6 +1,7 @@
 package ru.topbun.recipes.presentation.main.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import ru.topbun.recipes.App
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
+import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
+import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
+
     private val component by lazy { (requireActivity().application as App).component }
 
     private var _binding: FragmentHomeBinding? = null
@@ -22,6 +26,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java] }
+    private val adapter by lazy { RecipeAdapter() }
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -44,17 +49,39 @@ class HomeFragment : Fragment() {
 
     private fun setViews(){
         setListenersInView()
+        setAdapter()
     }
 
     private fun observeViewModel(){
         with(binding){
-            with(viewModel){
-
+            viewModel.state.observe(viewLifecycleOwner){
+                when(it){
+                    is HomeState.RecipeList -> {
+                        adapter.submitList(it.recipeList)
+                    }
+                    else -> {}
+                }
             }
         }
     }
 
-    private fun setListenersInView(){}
+    private fun setAdapter(){
+        adapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
+            val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
+            intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
+            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
+            startActivity(intent)
+        }
+        adapter.setOnFavoriteClickListener = {
+            viewModel.updateFavoriteRecipe(it)
+        }
+        binding.rvRecipes.adapter = adapter
+    }
+
+
+    private fun setListenersInView(){
+
+    }
 
 
     override fun onDestroyView() {

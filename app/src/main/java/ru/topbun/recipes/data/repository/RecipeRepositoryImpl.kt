@@ -25,8 +25,11 @@ class RecipeRepositoryImpl @Inject constructor(
 ): RecipeRepository {
 
     override fun getListFavoriteRecipe() = recipeDao.getListFavoriteRecipes()
-
-    override fun getRecipe(query: String) = recipeDao.getRecipe(query)
+    override suspend fun getRecipe(query: String) = recipeDao.getRecipe(query)
+    override fun getRecipeList() = recipeDao.getListRecipes()
+    override fun getRecipeListForCategory(category: String) = recipeDao.getListRecipesForCategory(category)
+    override suspend fun getRecipeForId(id: Int) = recipeDao.getRecipeForId(id)
+    override suspend fun addRecipe(recipe: RecipeModel) {recipeDao.addRecipe(recipe) }
 
     override suspend fun initRecipes() {
         val countRecipes = recipeDao.getCountRecipesInDb()
@@ -40,11 +43,6 @@ class RecipeRepositoryImpl @Inject constructor(
         editor.apply()
     }
 
-    override suspend fun getRecipeForId(id: Int) = recipeDao.getRecipeForId(id)
-
-    override suspend fun addRecipe(recipe: RecipeModel) {
-        recipeDao.addRecipe(recipe)
-    }
 
     override suspend fun getDetailRecipe(url: String): DetailRecipeModel? {
         return try {

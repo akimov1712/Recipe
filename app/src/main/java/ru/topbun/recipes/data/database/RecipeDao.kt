@@ -16,11 +16,14 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes ORDER BY CASE WHEN time = '' AND preview = '' THEN 1 WHEN time = '' THEN 2 WHEN preview = '' THEN 3 ELSE 0 END")
     fun getListRecipes(): LiveData<List<RecipeModel>>
 
+    @Query("SELECT * FROM recipes WHERE category =:category ORDER BY RANDOM()")
+    fun getListRecipesForCategory(category: String): LiveData<List<RecipeModel>>
+
     @Query("SELECT * FROM recipes WHERE isFavorite = '1'")
     fun getListFavoriteRecipes(): LiveData<List<RecipeModel>>
 
     @Query("SELECT * FROM recipes WHERE name LIKE '%' || :query || '%'")
-    fun getRecipe(query: String): LiveData<List<RecipeModel>>
+    suspend fun getRecipe(query: String): List<RecipeModel>
 
     @Query("SELECT COUNT(*) FROM recipes")
     suspend fun getCountRecipesInDb(): Int

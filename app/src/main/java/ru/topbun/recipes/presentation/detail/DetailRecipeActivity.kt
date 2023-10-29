@@ -29,6 +29,7 @@ class DetailRecipeActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.hide()
         getData()
         setViews()
         observeViewModel()

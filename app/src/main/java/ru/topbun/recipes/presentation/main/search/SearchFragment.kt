@@ -1,6 +1,7 @@
 package ru.topbun.recipes.presentation.main.search
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import ru.topbun.recipes.App
 import ru.topbun.recipes.databinding.FragmentSearchBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
+import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
 import javax.inject.Inject
 
@@ -26,7 +28,6 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java] }
-
     private val recipeAdapter by lazy { RecipeAdapter() }
 
     override fun onAttach(context: Context) {
@@ -46,7 +47,14 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setViews()
         observeViewModel()
+        getData()
     }
+
+    private fun getData(){
+        val query = binding.editText.text.toString()
+        viewModel.getRecipeQuery(query)
+    }
+
 
     private fun setViews(){
         setListenersInView()
@@ -57,20 +65,31 @@ class SearchFragment : Fragment() {
     private fun observeViewModel(){
         with(binding){
             with(viewModel){
-
+                state.observe(viewLifecycleOwner){
+                    when(it){
+                        is SearchState.ErrorRecipe -> {
+                            tvNotFount.visibility = View.VISIBLE
+                        }
+                        is SearchState.RecipeList -> {
+                            tvNotFount.visibility = View.GONE
+                            recipeAdapter.submitList(it.recipeList)
+                            rvRecipes.scrollToPosition(0)
+                        } else -> {}
+                    }
+                }
             }
         }
     }
 
         private fun setAdapter(){
-//        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
-//            val intent = Intent(this, DetailRecipeActivity::class.java)
-//            intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
-//            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
-//            startActivity(intent)
-//        }
+        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
+            val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
+            intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
+            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
+            startActivity(intent)
+        }
         recipeAdapter.setOnFavoriteClickListener = {
-//            viewModel.updateFavoriteRecipe(it)
+            viewModel.updateFavoriteRecipe(it)
         }
         binding.rvRecipes.adapter = recipeAdapter
     }
@@ -84,7 +103,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-//                s.toString().let { viewModel.getRecipeQuery(it) }
+                s.toString().let { viewModel.getRecipeQuery(it) }
                 if(s?.isNotBlank() == true){
                     binding.btnClear.visibility = View.VISIBLE
                 } else {
@@ -99,7 +118,6 @@ class SearchFragment : Fragment() {
         with(binding){
             btnClear.setOnClickListener {
                 editText.text.clear()
-                rvRecipes.scrollToPosition(0)
             }
         }
     }

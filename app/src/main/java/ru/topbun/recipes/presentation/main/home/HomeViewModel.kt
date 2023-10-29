@@ -9,15 +9,15 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetListFavoriteRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
+import ru.topbun.recipes.domain.useCases.GetRecipeListUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
+    private val getRecipeList: GetRecipeListUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
-    private val getRecipeUseCase: GetRecipeUseCase,
-    private val getRecipeFavoriteListUseCase: GetListFavoriteRecipeUseCase,
     private val initRecipesUseCase: InitRecipesUseCase
 ): ViewModel() {
 
@@ -25,15 +25,9 @@ class HomeViewModel @Inject constructor(
     val state: LiveData<HomeState>
         get() = _state
 
-    val recipeFavoriteList = getRecipeFavoriteListUseCase()
-
-    private val _recipeList = MutableLiveData<List<RecipeModel>>()
-    val recipeList: LiveData<List<RecipeModel>>
-        get() = _recipeList
-
-    fun getRecipeQuery(query: String){
-        getRecipeUseCase(query).observeForever {
-            _recipeList.value = it
+    private fun getRecipeList(){
+        getRecipeList.invoke().observeForever {
+            _state.value = HomeState.RecipeList(it)
         }
     }
 
@@ -50,4 +44,9 @@ class HomeViewModel @Inject constructor(
             initRecipesUseCase()
         }
     }
+
+    init {
+        getRecipeList()
+    }
+
 }
