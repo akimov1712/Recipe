@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation
+package ru.topbun.recipes.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -9,9 +9,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.topbun.recipes.App
+import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.FragmentSearchBinding
+import ru.topbun.recipes.dpToPx
 import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
@@ -59,7 +66,29 @@ class SearchFragment : Fragment() {
     private fun setViews(){
         setListenersInView()
         setTextWatcherInEditText()
+        setRecyclerView()
         setAdapter()
+    }
+
+    private fun setRecyclerView(){
+        with(binding) {
+            val layoutManager = rvRecipes.layoutManager
+
+            binding.rvRecipes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (layoutManager is LinearLayoutManager) {
+                        val firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()
+
+                        if (firstVisiblePosition >= 3){
+                            btnTop.visibility = View.VISIBLE
+                        } else {
+                            btnTop.visibility = View.GONE
+                        }
+                    }
+                }
+            })
+        }
     }
 
     private fun observeViewModel(){
@@ -73,7 +102,6 @@ class SearchFragment : Fragment() {
                         is SearchState.RecipeList -> {
                             tvNotFount.visibility = View.GONE
                             recipeAdapter.submitList(it.recipeList)
-                            rvRecipes.scrollToPosition(0)
                         } else -> {}
                     }
                 }
@@ -118,6 +146,9 @@ class SearchFragment : Fragment() {
         with(binding){
             btnClear.setOnClickListener {
                 editText.text.clear()
+            }
+            btnTop.setOnClickListener {
+                rvRecipes.smoothScrollToPosition(0)
             }
         }
     }

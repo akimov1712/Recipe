@@ -1,7 +1,6 @@
 package ru.topbun.recipes.di
 
 import android.app.Application
-import ru.topbun.recipes.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import ru.topbun.recipes.presentation.SplashActivity

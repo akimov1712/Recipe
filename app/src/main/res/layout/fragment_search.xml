@@ -62,4 +62,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editText" />
 
+    <ImageButton
+        android:id="@+id/btn_top"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/background_button_top"
+        android:elevation="4dp"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/icon_top"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/red" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

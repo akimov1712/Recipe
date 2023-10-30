@@ -64,9 +64,10 @@ class DetailRecipeActivity : AppCompatActivity() {
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.VISIBLE
                             clError.visibility = View.GONE
+                            binding.containerViewPager.isEnabled = true
                         }
                         is DetailRecipeState.ErrorGetDetailRecipe -> {
-                            supportActionBar?.title = "Ошибка"
+                            tvToolbarName.text = "Ошибка"
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.GONE
                             clError.visibility = View.VISIBLE
@@ -78,6 +79,7 @@ class DetailRecipeActivity : AppCompatActivity() {
     }
 
     private fun setViews(){
+        binding.containerViewPager.isEnabled = false
         setListenersInView()
     }
 
@@ -106,6 +108,9 @@ class DetailRecipeActivity : AppCompatActivity() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab != null) {
                         containerViewPager.currentItem = tab.position
+                    }
+                    if (tab?.position == 0 && scrollView.scrollY > tabLayout.top){
+                        scrollView.smoothScrollTo(0, tabLayout.top, 1000)
                     }
                 }
 

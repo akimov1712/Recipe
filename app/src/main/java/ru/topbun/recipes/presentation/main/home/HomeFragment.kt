@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.topbun.recipes.App
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
@@ -50,6 +52,7 @@ class HomeFragment : Fragment() {
     private fun setViews(){
         setListenersInView()
         setAdapter()
+        setRecyclerView()
     }
 
     private fun observeViewModel(){
@@ -78,9 +81,33 @@ class HomeFragment : Fragment() {
         binding.rvRecipes.adapter = adapter
     }
 
+    private fun setRecyclerView(){
+        with(binding) {
+            val layoutManager = rvRecipes.layoutManager
+
+            binding.rvRecipes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (layoutManager is LinearLayoutManager) {
+                        val firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()
+
+                        if (firstVisiblePosition >= 3){
+                            btnTop.visibility = View.VISIBLE
+                        } else {
+                            btnTop.visibility = View.GONE
+                        }
+                    }
+                }
+            })
+        }
+    }
 
     private fun setListenersInView(){
-
+        with(binding){
+            btnTop.setOnClickListener {
+                rvRecipes.smoothScrollToPosition(0)
+            }
+        }
     }
 
 

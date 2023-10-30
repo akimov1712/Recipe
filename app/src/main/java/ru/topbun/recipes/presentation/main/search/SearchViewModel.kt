@@ -9,14 +9,15 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
+import ru.topbun.recipes.getSeedForShuffle
 import javax.inject.Inject
+import kotlin.random.Random
 
 class SearchViewModel @Inject constructor(
     private val getRecipeUseCase: GetRecipeUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
 ): ViewModel() {
-    private var oldQuery = ""
 
     private val _state = MutableLiveData<SearchState>()
     val state: LiveData<SearchState>
@@ -24,10 +25,10 @@ class SearchViewModel @Inject constructor(
 
     fun getRecipeQuery(query: String){
         viewModelScope.launch {
-            val recipeList = getRecipeUseCase(query)
-            _state.value = SearchState.RecipeList(recipeList)
-            if (recipeList.isEmpty()) _state.value = SearchState.ErrorRecipe
-            oldQuery = query
+            getRecipeUseCase(query).observeForever {
+                _state.value = SearchState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
+                if (it.isEmpty()) _state.value = SearchState.ErrorRecipe
+            }
         }
     }
 
@@ -36,7 +37,6 @@ class SearchViewModel @Inject constructor(
             val oldRecipe = getRecipeForIdUseCase(id)
             val newRecipe = oldRecipe.copy(isFavorite = !oldRecipe.isFavorite)
             addRecipeUseCase(newRecipe)
-            getRecipeQuery(oldQuery)
         }
     }
 

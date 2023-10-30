@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    tools:context=".presentation.main.MainActivity">
 
     <fragment
         android:id="@+id/fragment_container"
@@ -27,6 +27,8 @@
         app:elevation="6dp"
         app:backgroundTint="@color/white"
         app:labelVisibilityMode="unlabeled"
+        android:elevation="4dp"
+        android:background="@color/white"
         app:itemActiveIndicatorStyle="@color/transparent"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@color/selector_color_icon_bottom_menu"

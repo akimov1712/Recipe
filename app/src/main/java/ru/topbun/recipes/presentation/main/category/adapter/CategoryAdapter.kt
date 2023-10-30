@@ -3,9 +3,10 @@ package ru.topbun.recipes.presentation.main.category.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.squareup.picasso.Picasso
 import ru.topbun.recipes.databinding.ItemCategoryBinding
 
-class CategoryAdapter: ListAdapter<String, CategoryViewHolder>(CategoryDiffCallback()) {
+class CategoryAdapter: ListAdapter<Pair<String, String>, CategoryViewHolder>(CategoryDiffCallback()) {
 
     var setOnCategoryClickListener: ((String) -> Unit)? = null
 
@@ -17,10 +18,14 @@ class CategoryAdapter: ListAdapter<String, CategoryViewHolder>(CategoryDiffCallb
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.tvCategory.text = item
-        holder.itemView.setOnClickListener {
-            setOnCategoryClickListener?.invoke(item)
+        with(holder.binding){
+            tvNameCategory.text = item.first
+            Picasso.get().load(item.second).into(ivPreview)
+            holder.itemView.setOnClickListener {
+                setOnCategoryClickListener?.invoke(item.first)
+            }
         }
+
     }
 
 }

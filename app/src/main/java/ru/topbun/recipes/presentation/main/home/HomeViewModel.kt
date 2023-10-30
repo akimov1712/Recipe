@@ -5,18 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
-import ru.topbun.recipes.domain.useCases.GetListFavoriteRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
-import ru.topbun.recipes.domain.useCases.GetRecipeListUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
+import ru.topbun.recipes.getSeedForShuffle
 import javax.inject.Inject
+import kotlin.random.Random
 
 class HomeViewModel @Inject constructor(
+    private val getRecipeUseCase: GetRecipeUseCase,
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
-    private val getRecipeList: GetRecipeListUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
     private val initRecipesUseCase: InitRecipesUseCase
 ): ViewModel() {
@@ -26,8 +25,8 @@ class HomeViewModel @Inject constructor(
         get() = _state
 
     private fun getRecipeList(){
-        getRecipeList.invoke().observeForever {
-            _state.value = HomeState.RecipeList(it)
+        getRecipeUseCase("").observeForever {
+            _state.value = HomeState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
         }
     }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.App
 import ru.topbun.recipes.databinding.ActivitySplashBinding
 import ru.topbun.recipes.presentation.base.ViewModelFactory
+import ru.topbun.recipes.presentation.main.MainActivity
 import ru.topbun.recipes.presentation.main.home.HomeViewModel
 import javax.inject.Inject
 
