@@ -3,6 +3,7 @@ package ru.topbun.recipes.presentation.main.favorite
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,7 +62,9 @@ class FavoriteFragment : Fragment() {
                 state.observe(viewLifecycleOwner) {
                     when(it){
                         is FavoriteState.ErrorRecipe -> {
+                            tvToolbarName.text = "Избранное 0"
                             tvNotFound.visibility = View.VISIBLE
+                            recipeAdapter.submitList(emptyList())
                         }
                         is FavoriteState.RecipeList -> {
                             tvToolbarName.text = "Избранное " + it.recipeList.size
@@ -75,10 +78,11 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setAdapter(){
-        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
+        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
             intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
+            intent.putExtra(DetailRecipeActivity.EXTRA_ID, id)
             startActivity(intent)
         }
         recipeAdapter.setOnFavoriteClickListener = {

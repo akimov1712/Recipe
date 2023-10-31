@@ -1,5 +1,6 @@
 package ru.topbun.recipes.presentation.main.favorite
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,8 +23,11 @@ class FavoriteViewModel @Inject constructor(
 
     private fun getFavoriteRecipe(){
         getRecipeFavoriteListUseCase().observeForever {
-            _state.value = FavoriteState.RecipeList(it)
-            if (it.isEmpty()) _state.value = FavoriteState.ErrorRecipe
+            if (it.isEmpty()) {
+                _state.value = FavoriteState.ErrorRecipe
+            } else {
+                _state.value = FavoriteState.RecipeList(it)
+            }
         }
     }
 

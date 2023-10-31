@@ -25,6 +25,10 @@ class DetailRecipeActivity : AppCompatActivity() {
 
     private lateinit var pageAdapter: DetailRecipePageAdapter
 
+    private var recipeId = UNDEFINED_ID
+    private var recipeUrl = UNDEFINED_URL
+    private var recipePreview = UNDEFINED_PREVIEW
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
@@ -36,11 +40,13 @@ class DetailRecipeActivity : AppCompatActivity() {
     }
 
     private fun getData(){
-        val url = intent.getStringExtra(EXTRA_URL)
-        url?.let { viewModel.getDetailRecipe(it) }
+        recipeId = intent.getIntExtra(EXTRA_ID, UNDEFINED_ID)
+        recipeUrl = intent.getStringExtra(EXTRA_URL).toString()
+        recipePreview = intent.getStringExtra(EXTRA_PREVIEW).toString()
 
-        val preview = intent.getStringExtra(EXTRA_PREVIEW)
-        Picasso.get().load(preview).error(R.color.white).into(binding.ivPreview)
+        viewModel.getRecipe(recipeId)
+        recipeUrl.let { viewModel.getDetailRecipe(it) }
+        Picasso.get().load(recipePreview).error(R.drawable.image_preview_not_found).into(binding.ivPreview)
     }
 
     private fun observeViewModel(){
@@ -55,22 +61,36 @@ class DetailRecipeActivity : AppCompatActivity() {
                             tvCategory.text = "Категория: ${it.detailRecipeItem.category}"
                             tvTime.text = "Время: ${it.detailRecipeItem.time}"
                             tvCountPortions.text = "Кол-во порций: ${it.detailRecipeItem.countPortion}"
+                            progressBar.visibility = View.GONE
+                            clContent.visibility = View.VISIBLE
+                            clError.visibility = View.GONE
+                            binding.containerViewPager.isEnabled = true
                             if (it.detailRecipeItem.kkal.isNotEmpty()){
                                 tvKkal.text = it.detailRecipeItem.kkal
                                 tvFats.text = it.detailRecipeItem.fats + "г"
                                 tvProteins.text = it.detailRecipeItem.proteins + "г"
                                 tvCarbs.text = it.detailRecipeItem.carbohydrates + "г"
                             }
-                            progressBar.visibility = View.GONE
-                            clContent.visibility = View.VISIBLE
-                            clError.visibility = View.GONE
-                            binding.containerViewPager.isEnabled = true
                         }
                         is DetailRecipeState.ErrorGetDetailRecipe -> {
                             tvToolbarName.text = "Ошибка"
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.GONE
                             clError.visibility = View.VISIBLE
+                        }
+                        is DetailRecipeState.RecipeItem -> {
+                            if (it.recipe.isFavorite){
+                                btnFavorite.setBackgroundResource(R.drawable.icon_favorite_enable)
+                            } else {
+                                btnFavorite.setBackgroundResource(R.drawable.icon_favorite_disable)
+                            }
+                        }
+                        is DetailRecipeState.ReplaceIconFavorite -> {
+                            if (it.isFavorite){
+                                btnFavorite.setBackgroundResource(R.drawable.icon_favorite_enable)
+                            } else {
+                                btnFavorite.setBackgroundResource(R.drawable.icon_favorite_disable)
+                            }
                         } else -> {}
                     }
                 }
@@ -93,6 +113,9 @@ class DetailRecipeActivity : AppCompatActivity() {
             }
             btnBack.setOnClickListener {
                 onBackPressed()
+            }
+            btnFavorite.setOnClickListener {
+                if (recipeId != UNDEFINED_ID) viewModel.updateFavoriteRecipe(recipeId)
             }
         }
     }
@@ -137,6 +160,11 @@ class DetailRecipeActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_URL = "extra_url"
         const val EXTRA_PREVIEW = "extra_preview"
+        const val EXTRA_ID = "extra_id"
+
+        private const val UNDEFINED_URL = "undefined_url"
+        private const val UNDEFINED_PREVIEW = "undefined_preview"
+        private const val UNDEFINED_ID = -1
     }
 
 }

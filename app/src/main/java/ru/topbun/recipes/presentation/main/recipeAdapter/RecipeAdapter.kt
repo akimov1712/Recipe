@@ -14,7 +14,7 @@ class RecipeAdapter @Inject constructor(): ListAdapter<RecipeModel, RecipeViewHo
     RecipeDiffCallback()
 ) {
 
-    var setOnRecipeClickListener: ((String, String) -> Unit)? = null
+    var setOnRecipeClickListener: ((String, String, Int) -> Unit)? = null
     var setOnFavoriteClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -38,8 +38,8 @@ class RecipeAdapter @Inject constructor(): ListAdapter<RecipeModel, RecipeViewHo
             } else {
                 tvTime.text = item.time
             }
-            Picasso.get().load(item.preview).into(ivPreview)
-            holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe, item.preview) }
+            Picasso.get().load(item.preview).error(R.drawable.image_preview_not_found).into(ivPreview)
+            holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe, item.preview, item.id) }
             if (item.isFavorite){
                 btnFavorite.setImageResource(R.drawable.icon_favorite_enable)
             } else {

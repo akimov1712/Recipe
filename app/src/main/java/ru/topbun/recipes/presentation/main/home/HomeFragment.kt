@@ -69,10 +69,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setAdapter(){
-        adapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
+        adapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
             intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
+            intent.putExtra(DetailRecipeActivity.EXTRA_ID, id)
             startActivity(intent)
         }
         adapter.setOnFavoriteClickListener = {

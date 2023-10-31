@@ -67,10 +67,11 @@ class CategoryFragment : Fragment() {
     }
 
     private fun setRecipeAdapter(){
-        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview ->
+        recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
             intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
+            intent.putExtra(DetailRecipeActivity.EXTRA_ID, id)
             startActivity(intent)
         }
         recipeAdapter.setOnFavoriteClickListener = {
