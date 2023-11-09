@@ -46,7 +46,7 @@ class DetailRecipeActivity : AppCompatActivity() {
 
         viewModel.getRecipe(recipeId)
         recipeUrl.let { viewModel.getDetailRecipe(it) }
-        Picasso.get().load(recipePreview).error(R.drawable.image_preview_not_found).into(binding.ivPreview)
+        Picasso.get().load(recipePreview).into(binding.ivPreview)
     }
 
     private fun observeViewModel(){
@@ -73,6 +73,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                             }
                         }
                         is DetailRecipeState.ErrorGetDetailRecipe -> {
+                            btnRetryLoad.isEnabled = true
                             tvToolbarName.text = "Ошибка"
                             progressBar.visibility = View.GONE
                             clContent.visibility = View.GONE
@@ -106,6 +107,7 @@ class DetailRecipeActivity : AppCompatActivity() {
     private fun setListenersInView(){
         with(binding){
             btnRetryLoad.setOnClickListener {
+                btnRetryLoad.isEnabled = false
                 progressBar.visibility = View.VISIBLE
                 intent.getStringExtra(EXTRA_URL)?.let { url ->
                     viewModel.getDetailRecipe(url)

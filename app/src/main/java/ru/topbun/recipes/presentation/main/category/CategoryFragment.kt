@@ -3,10 +3,13 @@ package ru.topbun.recipes.presentation.main.category
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -64,6 +67,7 @@ class CategoryFragment : Fragment() {
         setCategoryAdapter()
         setListenersInView()
         setRecyclerView()
+        setOnBackPressed()
     }
 
     private fun setRecipeAdapter(){
@@ -103,7 +107,7 @@ class CategoryFragment : Fragment() {
                 binding.clRecipeList.visibility = View.GONE
             }
             btnTop.setOnClickListener {
-                rvRecipe.smoothScrollToPosition(0)
+                rvRecipe.scrollToPosition(0)
             }
         }
     }
@@ -161,6 +165,22 @@ class CategoryFragment : Fragment() {
         categoryList.add(Pair("Заготовки","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/170223141144/210902152756/p_O.jpg.webp"))
         categoryList.add(Pair("Бульоны","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120214131251/140824234958/p_O.jpg.webp"))
         return categoryList
+    }
+
+    private fun setOnBackPressed() {
+        with(binding){
+            requireActivity()
+                .onBackPressedDispatcher
+                .addCallback(viewLifecycleOwner) {
+                    if (clRecipeList.isVisible){
+                        clRecipeList.isVisible = false
+                        clCategory.isVisible = true
+                        recipeAdapter.submitList(emptyList())
+                    } else {
+                        requireActivity().onBackPressed()
+                    }
+                }
+        }
     }
 
     override fun onDestroyView() {

@@ -38,7 +38,7 @@ class RecipeAdapter @Inject constructor(): ListAdapter<RecipeModel, RecipeViewHo
             } else {
                 tvTime.text = item.time
             }
-            Picasso.get().load(item.preview).error(R.drawable.image_preview_not_found).into(ivPreview)
+            Picasso.get().load(item.preview).into(ivPreview)
             holder.itemView.setOnClickListener { setOnRecipeClickListener?.invoke(item.urlFullRecipe, item.preview, item.id) }
             if (item.isFavorite){
                 btnFavorite.setImageResource(R.drawable.icon_favorite_enable)

@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(
     fun getRecipeQuery(query: String){
         viewModelScope.launch {
             getRecipeUseCase(query).observeForever {
-                _state.value = SearchState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
+                _state.value = SearchState.RecipeList(it)
                 if (it.isEmpty()) _state.value = SearchState.ErrorRecipe
             }
         }

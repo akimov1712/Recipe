@@ -149,7 +149,7 @@ class SearchFragment : Fragment() {
                 editText.text.clear()
             }
             btnTop.setOnClickListener {
-                rvRecipes.smoothScrollToPosition(0)
+                rvRecipes.scrollToPosition(0)
             }
         }
     }

@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
     private fun setListenersInView(){
         with(binding){
             btnTop.setOnClickListener {
-                rvRecipes.smoothScrollToPosition(0)
+                rvRecipes.scrollToPosition(0)
             }
         }
     }
