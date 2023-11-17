@@ -8,29 +8,17 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentStepRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.parcelable
+import ru.topbun.recipes.utils.parcelable
 import ru.topbun.recipes.presentation.detail.stepDetailRecipe.StepRecipeAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class StepRecipeFragment : Fragment() {
-
-    private var _binding: FragmentStepRecipeBinding? = null
-    private val binding: FragmentStepRecipeBinding
-        get() = _binding ?: throw RuntimeException("FragmentStepRecipeBinding == null")
+class StepRecipeFragment : BaseFragment<FragmentStepRecipeBinding>(FragmentStepRecipeBinding::inflate) {
 
     private val adapter by lazy { StepRecipeAdapter() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStepRecipeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViews()
         getDataFromBundle()
     }
 
@@ -39,18 +27,12 @@ class StepRecipeFragment : Fragment() {
         adapter.submitList(recipe?.stepRecipeList)
     }
 
-    private fun setViews(){
-        setAdapter()
-    }
+    override fun setListenersInView() {}
+    override fun setRecyclerViews() {}
+    override fun observeViewModel() {}
 
-    private fun setAdapter(){
+    override fun setAdapters(){
         binding.rvStepRecipe.adapter = adapter
-    }
-
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     companion object {

@@ -10,8 +10,7 @@ import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
-import ru.topbun.recipes.getSeedForShuffle
-import ru.topbun.recipes.presentation.detail.DetailRecipeState
+import ru.topbun.recipes.utils.getSeedForShuffle
 import javax.inject.Inject
 import kotlin.random.Random
 

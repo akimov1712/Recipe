@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.topbun.recipes.domain.entity.RecipeModel
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
-import ru.topbun.recipes.getSeedForShuffle
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(

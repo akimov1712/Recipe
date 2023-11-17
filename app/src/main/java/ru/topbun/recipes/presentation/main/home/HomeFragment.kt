@@ -13,40 +13,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-
-    private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding
-        get() = _binding ?: throw RuntimeException("FragmentHomeBinding == null")
-
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val viewModel by viewModels<HomeViewModel>()
     private val adapter by lazy { RecipeAdapter() }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setViews()
-        observeViewModel()
-    }
-
-    private fun setViews(){
-        setListenersInView()
-        setAdapter()
-        setRecyclerView()
-    }
-
-    private fun observeViewModel(){
+    override fun observeViewModel(){
         with(binding){
             viewModel.state.observe(viewLifecycleOwner){
                 when(it){
@@ -59,7 +34,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setAdapter(){
+    override fun setAdapters() {
         adapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
@@ -73,10 +48,9 @@ class HomeFragment : Fragment() {
         binding.rvRecipes.adapter = adapter
     }
 
-    private fun setRecyclerView(){
+    override fun setRecyclerViews() {
         with(binding) {
             val layoutManager = rvRecipes.layoutManager
-
             binding.rvRecipes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -94,7 +68,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setListenersInView(){
+    override fun setListenersInView(){
         with(binding){
             btnTop.setOnClickListener {
                 rvRecipes.scrollToPosition(0)
@@ -102,9 +76,4 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
 }

@@ -16,30 +16,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentSearchBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
-
-    private var _binding: FragmentSearchBinding? = null
-    private val binding: FragmentSearchBinding
-        get() = _binding ?: throw RuntimeException("FragmentSearchBinding == null")
-
+class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel by viewModels<SearchViewModel>()
     private val recipeAdapter by lazy { RecipeAdapter() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentSearchBinding.inflate(inflater, container,false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViews()
-        observeViewModel()
         getData()
     }
 
@@ -48,18 +34,14 @@ class SearchFragment : Fragment() {
         viewModel.getRecipeQuery(query)
     }
 
-
-    private fun setViews(){
-        setListenersInView()
+    override fun setViews(){
+        super.setViews()
         setTextWatcherInEditText()
-        setRecyclerView()
-        setAdapter()
     }
 
-    private fun setRecyclerView(){
+    override fun setRecyclerViews(){
         with(binding) {
             val layoutManager = rvRecipes.layoutManager
-
             binding.rvRecipes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -77,7 +59,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun observeViewModel(){
+    override fun observeViewModel(){
         with(binding){
             with(viewModel){
                 state.observe(viewLifecycleOwner){
@@ -95,7 +77,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-        private fun setAdapter(){
+    override fun setAdapters(){
         recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
@@ -129,7 +111,7 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun setListenersInView(){
+    override fun setListenersInView(){
         with(binding){
             btnClear.setOnClickListener {
                 editText.text.clear()
@@ -140,10 +122,4 @@ class SearchFragment : Fragment() {
         }
     }
 
-
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
 }

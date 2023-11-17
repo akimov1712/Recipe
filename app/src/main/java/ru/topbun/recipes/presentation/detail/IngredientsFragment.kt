@@ -8,50 +8,32 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentIngridientsBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.parcelable
+import ru.topbun.recipes.utils.parcelable
 import ru.topbun.recipes.presentation.detail.ingrAdapter.IngrAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class IngredientsFragment : Fragment() {
-
-    private var _binding: FragmentIngridientsBinding? = null
-    private val binding: FragmentIngridientsBinding
-        get() = _binding ?: throw RuntimeException("FragmentIngridientsBinding == null")
+class IngredientsFragment : BaseFragment<FragmentIngridientsBinding>(FragmentIngridientsBinding::inflate) {
 
     private val adapter by lazy { IngrAdapter() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentIngridientsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViews()
         getDataFromBundle()
     }
+
+    override fun setListenersInView() {}
+    override fun setRecyclerViews() {}
+    override fun observeViewModel() {}
 
     private fun getDataFromBundle(){
         val recipe = arguments?.parcelable<DetailRecipeModel>(BUNDLE_INGR)
         adapter.submitList(recipe?.ingrList)
     }
 
-    private fun setViews(){
-        setAdapter()
-    }
-
-    private fun setAdapter(){
+    override fun setAdapters(){
         binding.rvIngr.adapter = adapter
     }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
 
     companion object {
 

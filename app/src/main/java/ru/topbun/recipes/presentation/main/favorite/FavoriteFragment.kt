@@ -11,37 +11,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentFavoriteBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
-
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding: FragmentFavoriteBinding
-        get() = _binding ?: throw RuntimeException("FragmentFavoriteBinding == null")
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate) {
 
     private val viewModel by viewModels<FavoriteViewModel>()
     private val recipeAdapter by lazy { RecipeAdapter() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setViews()
-        observeViewModel()
-    }
-
-    private fun setViews(){
-        setListenersInView()
-        setAdapter()
-    }
-
-    private fun observeViewModel(){
+    override fun observeViewModel(){
         with(binding){
             with(viewModel){
                 state.observe(viewLifecycleOwner) {
@@ -62,7 +40,7 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-    private fun setAdapter(){
+    override fun setAdapters(){
         recipeAdapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
             val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
             intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
@@ -76,12 +54,7 @@ class FavoriteFragment : Fragment() {
         binding.rvRecipe.adapter = recipeAdapter
     }
 
-    private fun setListenersInView(){}
-
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
+    override fun setListenersInView(){}
+    override fun setRecyclerViews(){}
 
 }

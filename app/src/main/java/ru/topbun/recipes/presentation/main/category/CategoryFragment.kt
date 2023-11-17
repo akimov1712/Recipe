@@ -16,13 +16,10 @@ import ru.topbun.recipes.databinding.FragmentCategoryBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment() {
-
-    private var _binding: FragmentCategoryBinding? = null
-    private val binding: FragmentCategoryBinding
-        get() = _binding ?: throw RuntimeException("FragmentCategoryBinding == null")
+class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryBinding::inflate) {
 
     private val viewModel by viewModels<CategoryViewModel>()
     private val recipeAdapter by lazy{ RecipeAdapter() }
@@ -30,19 +27,9 @@ class CategoryFragment : Fragment() {
 
     private var choiceCategory = "Категория"
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCategoryBinding.inflate(inflater, container,false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataFromBundle(savedInstanceState)
-        setViews()
-        observeViewModel()
     }
 
     private fun getDataFromBundle(savedInstanceState: Bundle?) {
@@ -50,11 +37,8 @@ class CategoryFragment : Fragment() {
         binding.tvToolbarRecipeName.text = choiceCategory
     }
 
-    private fun setViews(){
-        setRecipeAdapter()
-        setCategoryAdapter()
-        setListenersInView()
-        setRecyclerView()
+    override fun setViews(){
+        super.setViews()
         setOnBackPressed()
     }
 
@@ -88,7 +72,7 @@ class CategoryFragment : Fragment() {
         outState.putString(EXTRA_CATEGORY, choiceCategory)
     }
 
-    private fun setListenersInView(){
+    override fun setListenersInView(){
         with(binding){
             btnBack.setOnClickListener {
                 binding.clCategory.visibility = View.VISIBLE
@@ -100,7 +84,12 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun observeViewModel(){
+    override fun setAdapters() {
+        setRecipeAdapter()
+        setCategoryAdapter()
+    }
+
+    override fun observeViewModel(){
         with(binding){
             with(viewModel){
                 state.observe(viewLifecycleOwner){
@@ -116,10 +105,9 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun setRecyclerView(){
+    override fun setRecyclerViews(){
         with(binding) {
             val layoutManager = rvRecipe.layoutManager
-
             binding.rvRecipe.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -169,11 +157,6 @@ class CategoryFragment : Fragment() {
                     }
                 }
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     companion object{
