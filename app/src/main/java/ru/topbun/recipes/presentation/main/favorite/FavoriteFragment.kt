@@ -1,41 +1,26 @@
 package ru.topbun.recipes.presentation.main.favorite
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import ru.topbun.recipes.App
-import ru.topbun.recipes.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentFavoriteBinding
-import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
-import ru.topbun.recipes.presentation.detail.DetailRecipeViewModel
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
-
-    private val component by lazy { (requireActivity().application as App).component }
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding: FragmentFavoriteBinding
         get() = _binding ?: throw RuntimeException("FragmentFavoriteBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[FavoriteViewModel::class.java] }
+    private val viewModel by viewModels<FavoriteViewModel>()
     private val recipeAdapter by lazy { RecipeAdapter() }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

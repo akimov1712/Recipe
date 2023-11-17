@@ -1,12 +1,7 @@
 package ru.topbun.recipes
 
 import android.app.Application
-import ru.topbun.recipes.di.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class App: Application() {
-
-    val component by lazy{
-        DaggerApplicationComponent.factory().create(this)
-    }
-
-}
+@HiltAndroidApp
+class App: Application()

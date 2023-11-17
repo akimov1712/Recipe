@@ -1,16 +1,17 @@
 package ru.topbun.recipes.presentation.main.favorite
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetListFavoriteRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import javax.inject.Inject
 
+@HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val getRecipeFavoriteListUseCase: GetListFavoriteRecipeUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,

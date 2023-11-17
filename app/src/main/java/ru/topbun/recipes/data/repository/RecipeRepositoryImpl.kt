@@ -2,25 +2,24 @@ package ru.topbun.recipes.data.repository
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import ru.topbun.recipes.data.database.RecipeDao
-import ru.topbun.recipes.domain.entity.RecipeResponseModel
 import ru.topbun.recipes.domain.repository.RecipeRepository
 import com.google.gson.Gson
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
 import ru.topbun.recipes.domain.entity.RecipeModel
+import ru.topbun.recipes.domain.entity.RecipeResponseModel
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class RecipeRepositoryImpl @Inject constructor(
-    private val application: Application,
+    @ApplicationContext private val application: Context,
     private val recipeDao: RecipeDao
 ): RecipeRepository {
 

@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -15,8 +16,8 @@ android {
         applicationId "ru.topbun.recipes"
         minSdk 24
         targetSdk 34
-        versionCode 13
-        versionName "2.21"
+        versionCode 14
+        versionName "2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,12 +48,12 @@ android {
 dependencies {
 
     def room_version = "2.5.1"
-    def dagger2 = "2.48"
+    def hilt = "2.48.1"
     def nav_version = "2.5.3"
 
-//    Dagger
-    implementation "com.google.dagger:dagger:$dagger2"
-    ksp "com.google.dagger:dagger-compiler:$dagger2"
+//    Hilt
+    implementation "com.google.dagger:hilt-android:$hilt"
+    kapt "com.google.dagger:hilt-compiler:$hilt"
 
 //    View
     implementation 'com.squareup.picasso:picasso:2.71828'

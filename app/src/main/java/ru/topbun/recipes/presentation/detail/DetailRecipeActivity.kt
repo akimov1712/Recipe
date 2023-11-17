@@ -1,27 +1,23 @@
 package ru.topbun.recipes.presentation.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
-import ru.topbun.recipes.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityDetailRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.presentation.base.ViewModelFactory
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailRecipeActivity : AppCompatActivity() {
 
-    private val component by lazy {(application as App).component}
     private val binding by lazy {ActivityDetailRecipeBinding.inflate(layoutInflater)}
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[DetailRecipeViewModel::class.java] }
+    private val viewModel by viewModels<DetailRecipeViewModel>()
 
     private lateinit var pageAdapter: DetailRecipePageAdapter
 
@@ -30,7 +26,6 @@ class DetailRecipeActivity : AppCompatActivity() {
     private var recipePreview = UNDEFINED_PREVIEW
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         supportActionBar?.hide()

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
@@ -12,8 +13,8 @@ import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.presentation.main.search.SearchState
 import javax.inject.Inject
 
+@HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val getRecipeUseCase: GetRecipeUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
     private val getRecipeListForCategoryUseCase: GetRecipeListForCategoryUseCase

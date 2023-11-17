@@ -1,46 +1,32 @@
 package ru.topbun.recipes.presentation.main.search
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.topbun.recipes.App
-import ru.topbun.recipes.R
+import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentSearchBinding
-import ru.topbun.recipes.dpToPx
-import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
-    private val component by lazy { (requireActivity().application as App).component }
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding ?: throw RuntimeException("FragmentSearchBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java] }
-    private val recipeAdapter by lazy { RecipeAdapter() }
 
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
+    private val viewModel by viewModels<SearchViewModel>()
+    private val recipeAdapter by lazy { RecipeAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

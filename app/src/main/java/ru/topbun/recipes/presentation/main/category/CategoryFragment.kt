@@ -1,46 +1,34 @@
 package ru.topbun.recipes.presentation.main.category
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.topbun.recipes.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentCategoryBinding
-import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CategoryFragment : Fragment() {
-    private val component by lazy { (requireActivity().application as App).component }
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding: FragmentCategoryBinding
         get() = _binding ?: throw RuntimeException("FragmentCategoryBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[CategoryViewModel::class.java] }
+    private val viewModel by viewModels<CategoryViewModel>()
     private val recipeAdapter by lazy{ RecipeAdapter() }
     private val categoryAdapter by lazy{ CategoryAdapter() }
 
     private var choiceCategory = "Категория"
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

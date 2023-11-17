@@ -1,39 +1,30 @@
 package ru.topbun.recipes.presentation.main.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.topbun.recipes.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentHomeBinding
-import ru.topbun.recipes.presentation.base.ViewModelFactory
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
-
-    private val component by lazy { (requireActivity().application as App).component }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding ?: throw RuntimeException("FragmentHomeBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java] }
+
+    private val viewModel by viewModels<HomeViewModel>()
     private val adapter by lazy { RecipeAdapter() }
 
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
