@@ -12,9 +12,7 @@ import ru.topbun.recipes.domain.entity.RecipeModel
     RecipeModel::class,
 ], version = 8, exportSchema = true,
 //    autoMigrations = [
-//        AutoMigration(
-//            6,7
-//        )
+//        AutoMigration(8,9)
 //    ]
 )
 abstract class AppDatabase: RoomDatabase() {
@@ -29,12 +27,13 @@ abstract class AppDatabase: RoomDatabase() {
             INSTANCE ?: buildDatabase(application).also { INSTANCE = it }
         }
 
-        private fun buildDatabase(context: Context) =
+        private fun buildDatabase(application: Application) =
             Room.databaseBuilder(
-                context,
+                application,
                 AppDatabase::class.java,
                 DB_NAME
-            ).fallbackToDestructiveMigration().build()
+            ).createFromAsset("database/recipe.db")
+            .build()
 
     }
 }

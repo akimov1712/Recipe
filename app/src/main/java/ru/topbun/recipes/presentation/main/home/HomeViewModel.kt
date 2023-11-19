@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
-import ru.topbun.recipes.domain.useCases.InitRecipesUseCase
 import ru.topbun.recipes.utils.getSeedForShuffle
 import javax.inject.Inject
 import kotlin.random.Random
@@ -19,7 +18,6 @@ class HomeViewModel @Inject constructor(
     private val getRecipeUseCase: GetRecipeUseCase,
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
     private val addRecipeUseCase: AddRecipeUseCase,
-    private val initRecipesUseCase: InitRecipesUseCase
 ): ViewModel() {
 
     private val _state = MutableLiveData<HomeState>()
@@ -37,12 +35,6 @@ class HomeViewModel @Inject constructor(
             val oldRecipe = getRecipeForIdUseCase(id)
             val newRecipe = oldRecipe.copy(isFavorite = !oldRecipe.isFavorite)
             addRecipeUseCase(newRecipe)
-        }
-    }
-
-    fun initRecipes(){
-        viewModelScope.launch {
-            initRecipesUseCase()
         }
     }
 

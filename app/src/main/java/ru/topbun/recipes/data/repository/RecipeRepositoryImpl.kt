@@ -1,25 +1,18 @@
 package ru.topbun.recipes.data.repository
 
-import android.app.Application
-import android.content.Context
-import ru.topbun.recipes.data.database.RecipeDao
-import ru.topbun.recipes.domain.repository.RecipeRepository
-import com.google.gson.Gson
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import org.jsoup.Jsoup
+import ru.topbun.recipes.data.database.RecipeDao
 import ru.topbun.recipes.domain.entity.DetailRecipeModel
 import ru.topbun.recipes.domain.entity.RecipeModel
-import ru.topbun.recipes.domain.entity.RecipeResponseModel
+import ru.topbun.recipes.domain.repository.RecipeRepository
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class RecipeRepositoryImpl @Inject constructor(
-    @ApplicationContext private val application: Context,
     private val recipeDao: RecipeDao
 ): RecipeRepository {
 
@@ -28,19 +21,6 @@ class RecipeRepositoryImpl @Inject constructor(
     override fun getRecipeListForCategory(category: String) = recipeDao.getListRecipesForCategory(category)
     override suspend fun getRecipeForId(id: Int) = recipeDao.getRecipeForId(id)
     override suspend fun addRecipe(recipe: RecipeModel) {recipeDao.addRecipe(recipe) }
-
-    override suspend fun initRecipes() {
-        val countRecipes = recipeDao.getCountRecipesInDb()
-        if (countRecipes < 9000){
-            recipeDao.deleteRecipes()
-            initRecipesFromJSON()
-        }
-        val sharedPreferences = application.applicationContext.getSharedPreferences("endInit", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("initComplete", true)
-        editor.apply()
-    }
-
 
     override suspend fun getDetailRecipe(url: String): DetailRecipeModel? {
         return try {
@@ -80,28 +60,6 @@ class RecipeRepositoryImpl @Inject constructor(
             return result.await()
         } catch (e: IOException) {
             null
-        }
-    }
-
-    private suspend fun initRecipesFromJSON(){
-        val stringJson = loadJSONFromAsset(application, "recipes.json")
-        val recipeList = Gson().fromJson(stringJson, RecipeResponseModel::class.java)
-        recipeList.forEach {
-            addRecipe(it)
-        }
-    }
-
-    private fun loadJSONFromAsset(context: Context, filename: String): String {
-        return try {
-            val inputStream = context.assets.open(filename)
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            String(buffer, Charsets.UTF_8)
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            ""
         }
     }
 

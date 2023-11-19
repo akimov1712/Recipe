@@ -16,14 +16,13 @@ android {
         applicationId "ru.topbun.recipes"
         minSdk 24
         targetSdk 34
-        versionCode 14
-        versionName "2.3"
+        versionCode 16
+        versionName "3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    kapt {
-        arguments {
-            arg("room.schemaLocation", "$projectDir/schemas")
+
+        ksp {
+            arg('room.schemaLocation', "$projectDir/schemas")
         }
     }
     buildTypes {
@@ -46,7 +45,7 @@ android {
 
 dependencies {
 
-    def room_version = "2.5.1"
+    def room_version = "2.6.0"
     def hilt = "2.48.1"
     def nav_version = "2.5.3"
 
