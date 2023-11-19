@@ -16,8 +16,8 @@ android {
         applicationId "ru.topbun.recipes"
         minSdk 24
         targetSdk 34
-        versionCode 16
-        versionName "3.1"
+        versionCode 18
+        versionName "3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -29,6 +29,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {

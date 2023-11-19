@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "recipes", indices = [Index(value = ["name","preview"], unique = true)])
+@Entity(tableName = "recipes")
 data class RecipeModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
