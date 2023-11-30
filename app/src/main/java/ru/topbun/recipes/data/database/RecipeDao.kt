@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.topbun.recipes.domain.entity.RecipeModel
 
 @Dao
@@ -14,21 +15,16 @@ interface RecipeDao {
     suspend fun addRecipe(recipe: RecipeModel)
 
     @Query("SELECT * FROM recipes WHERE category =:category ORDER BY CASE WHEN time = '' AND preview = '' THEN 1 WHEN time = '' THEN 2 WHEN preview = '' THEN 3 ELSE 0 END")
-    fun getListRecipesForCategory(category: String): LiveData<List<RecipeModel>>
+    fun getListRecipesForCategory(category: String): Flow<List<RecipeModel>>
 
     @Query("SELECT * FROM recipes WHERE isFavorite = '1'")
-    fun getListFavoriteRecipes(): LiveData<List<RecipeModel>>
+    fun getListFavoriteRecipes(): Flow<List<RecipeModel>>
 
     @Query("SELECT * FROM recipes WHERE name LIKE '%' || :query || '%' ORDER BY CASE WHEN time = '' AND preview = '' THEN 1 WHEN time = '' THEN 2 WHEN preview = '' THEN 3 ELSE 0 END")
-    fun getRecipe(query: String): LiveData<List<RecipeModel>>
-
-    @Query("SELECT COUNT(*) FROM recipes")
-    suspend fun getCountRecipesInDb(): Int
+    fun getRecipe(query: String): Flow<List<RecipeModel>>
 
     @Query("SELECT * FROM recipes WHERE id=:id LIMIT 1")
     suspend fun getRecipeForId(id: Int): RecipeModel
 
-    @Query("DELETE FROM recipes")
-    suspend fun deleteRecipes()
 
 }

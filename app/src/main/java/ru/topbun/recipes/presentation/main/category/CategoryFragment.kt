@@ -9,9 +9,13 @@ import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentCategoryBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
@@ -90,17 +94,24 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     }
 
     override fun observeViewModel(){
-        with(binding){
-            with(viewModel){
-                state.observe(viewLifecycleOwner){
-                    when(it){
-                        is CategoryState.RecipeList -> {
-                            recipeAdapter.submitList(it.recipeList)
-                            clCategory.visibility = View.GONE
-                            clRecipeList.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED){
+                with(binding){
+                    with(viewModel){
+                        state.collect{
+                            when(it){
+                                is CategoryState.RecipeList -> {
+                                    recipeAdapter.submitList(it.recipeList)
+                                    clCategory.visibility = View.GONE
+                                    clRecipeList.visibility = View.VISIBLE
+                                }
+
+                                else -> {}
+                            }
                         }
                     }
                 }
+
             }
         }
     }

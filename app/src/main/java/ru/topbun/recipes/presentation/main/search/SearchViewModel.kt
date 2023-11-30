@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
+import ru.topbun.recipes.presentation.main.home.HomeState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,13 +22,12 @@ class SearchViewModel @Inject constructor(
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
 ): ViewModel() {
 
-    private val _state = MutableLiveData<SearchState>()
-    val state: LiveData<SearchState>
-        get() = _state
+    private val _state = MutableStateFlow<SearchState>(SearchState.Loading)
+    val state get() = _state.asStateFlow()
 
-    fun getRecipeQuery(query: String){
+    fun getRecipeQuery(query: String) = viewModelScope.launch{
         viewModelScope.launch {
-            getRecipeUseCase(query).observeForever {
+            getRecipeUseCase(query).collect {
                 _state.value = SearchState.RecipeList(it)
                 if (it.isEmpty()) _state.value = SearchState.ErrorRecipe
             }

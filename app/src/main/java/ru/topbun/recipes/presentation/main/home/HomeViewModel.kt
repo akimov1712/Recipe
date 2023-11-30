@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
@@ -20,12 +22,11 @@ class HomeViewModel @Inject constructor(
     private val addRecipeUseCase: AddRecipeUseCase,
 ): ViewModel() {
 
-    private val _state = MutableLiveData<HomeState>()
-    val state: LiveData<HomeState>
-        get() = _state
+    private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
+    val state get() = _state.asStateFlow()
 
-    private fun getRecipeList(){
-        getRecipeUseCase("").observeForever {
+    private fun getRecipeList() = viewModelScope.launch{
+        getRecipeUseCase("").collect {
             _state.value = HomeState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
         }
     }

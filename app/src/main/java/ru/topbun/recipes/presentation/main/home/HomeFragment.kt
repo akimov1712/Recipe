@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
@@ -22,14 +26,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val adapter by lazy { RecipeAdapter() }
 
     override fun observeViewModel(){
-        with(binding){
-            viewModel.state.observe(viewLifecycleOwner){
-                when(it){
-                    is HomeState.RecipeList -> {
-                        adapter.submitList(it.recipeList)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                with(binding){
+                    viewModel.state.collect{
+                        when(it){
+                            is HomeState.RecipeList -> {
+                                adapter.submitList(it.recipeList)
+                                progressBar.visibility = View.GONE
+                            }
+                            is HomeState.Loading -> {
+                                progressBar.visibility = View.VISIBLE
+                            }
+                        }
                     }
-                    else -> {}
                 }
+
             }
         }
     }

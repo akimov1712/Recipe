@@ -8,4 +8,5 @@ sealed class DetailRecipeState{
     class ReplaceIconFavorite(val isFavorite: Boolean): DetailRecipeState()
     class DetailRecipe(val detailRecipeItem: DetailRecipeModel): DetailRecipeState()
     class RecipeItem(val recipe: RecipeModel): DetailRecipeState()
+    data object Loading: DetailRecipeState()
 }

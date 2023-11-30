@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentFavoriteBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
+import ru.topbun.recipes.presentation.main.search.SearchState
 
 @AndroidEntryPoint
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate) {
@@ -20,22 +25,34 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
     private val recipeAdapter by lazy { RecipeAdapter() }
 
     override fun observeViewModel(){
-        with(binding){
-            with(viewModel){
-                state.observe(viewLifecycleOwner) {
-                    when(it){
-                        is FavoriteState.ErrorRecipe -> {
-                            tvToolbarName.text = "Избранное 0"
-                            tvNotFound.visibility = View.VISIBLE
-                            recipeAdapter.submitList(emptyList())
-                        }
-                        is FavoriteState.RecipeList -> {
-                            tvToolbarName.text = "Избранное " + it.recipeList.size
-                            tvNotFound.visibility = View.GONE
-                            recipeAdapter.submitList(it.recipeList)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                with(binding){
+                    with(viewModel){
+                        state.collect {
+                            when(it){
+                                is FavoriteState.ErrorRecipe -> {
+                                    tvToolbarName.text = "Избранное 0"
+                                    tvNotFound.visibility = View.VISIBLE
+                                    recipeAdapter.submitList(emptyList())
+                                    progressBar.visibility = View.GONE
+                                }
+                                is FavoriteState.RecipeList -> {
+                                    tvToolbarName.text = "Избранное " + it.recipeList.size
+                                    tvNotFound.visibility = View.GONE
+                                    recipeAdapter.submitList(it.recipeList)
+                                    progressBar.visibility = View.GONE
+                                }
+
+                                is FavoriteState.Loading -> {
+                                    progressBar.visibility = View.VISIBLE
+                                }
+                            }
                         }
                     }
                 }
+
             }
         }
     }

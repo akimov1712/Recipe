@@ -20,11 +20,11 @@ class RecipeRepositoryImpl @Inject constructor(
     override fun getRecipe(query: String) = recipeDao.getRecipe(query)
     override fun getRecipeListForCategory(category: String) = recipeDao.getListRecipesForCategory(category)
     override suspend fun getRecipeForId(id: Int) = recipeDao.getRecipeForId(id)
-    override suspend fun addRecipe(recipe: RecipeModel) {recipeDao.addRecipe(recipe) }
+    override suspend fun addRecipe(recipe: RecipeModel) { recipeDao.addRecipe(recipe) }
 
     override suspend fun getDetailRecipe(url: String): DetailRecipeModel? {
         return try {
-            val result: Deferred<DetailRecipeModel?> = CoroutineScope(Dispatchers.IO).async {
+            val result = CoroutineScope(Dispatchers.IO).async {
                 val ingrList = mutableListOf<Pair<String, String>>()
                 val stepRecipeList = mutableListOf<Pair<String, String>>()
 
