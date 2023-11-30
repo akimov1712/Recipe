@@ -24,7 +24,7 @@ class FavoriteViewModel @Inject constructor(
     val state get() = _state.asStateFlow()
 
     private fun getFavoriteRecipe() = viewModelScope.launch{
-        getRecipeFavoriteListUseCase().collect {
+        getRecipeFavoriteListUseCase().collect() {
             if (it.isEmpty()) {
                 _state.value = FavoriteState.ErrorRecipe
             } else {

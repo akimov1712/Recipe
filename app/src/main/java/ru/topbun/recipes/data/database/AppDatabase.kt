@@ -10,9 +10,9 @@ import ru.topbun.recipes.domain.entity.RecipeModel
 
 @Database(entities = [
     RecipeModel::class,
-], version = 6, exportSchema = true,
+], version = 9, exportSchema = true,
     autoMigrations = [
-        AutoMigration(5,6)
+        AutoMigration(8,9),
     ]
 )
 abstract class AppDatabase: RoomDatabase() {
@@ -32,7 +32,7 @@ abstract class AppDatabase: RoomDatabase() {
                 application,
                 AppDatabase::class.java,
                 DB_NAME
-            ).addMigrations().createFromAsset("database/recipe.db")
+            ).createFromAsset("database/recipe.db")
             .build()
 
     }

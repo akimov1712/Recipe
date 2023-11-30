@@ -21,9 +21,11 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow<CategoryState>(CategoryState.Loading)
     val state get() = _state.asStateFlow()
 
-    fun getRecipeByCategory(category: String)= viewModelScope.launch{
-        getRecipeListForCategoryUseCase(category).collect {
-            _state.emit(CategoryState.RecipeList(it))
+    fun getRecipeByCategory(category: String){
+        viewModelScope.launch{
+            getRecipeListForCategoryUseCase(category).collect {
+                _state.emit(CategoryState.RecipeList(it))
+            }
         }
     }
 
