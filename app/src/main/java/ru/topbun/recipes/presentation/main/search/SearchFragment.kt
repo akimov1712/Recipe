@@ -73,11 +73,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                                 is SearchState.ErrorRecipe -> {
                                     tvNotFount.visibility = View.VISIBLE
                                     progressBar.visibility = View.GONE
+                                    rvRecipes.visibility = View.GONE
                                 }
                                 is SearchState.RecipeList -> {
                                     tvNotFount.visibility = View.GONE
                                     recipeAdapter.submitList(it.recipeList)
                                     progressBar.visibility = View.GONE
+                                    rvRecipes.visibility = View.VISIBLE
                                 }
                                 is SearchState.Loading -> {
                                     progressBar.visibility = View.VISIBLE

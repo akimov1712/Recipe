@@ -1,5 +1,6 @@
 package ru.topbun.recipes.presentation.main.favorite
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,12 +25,14 @@ class FavoriteViewModel @Inject constructor(
     private val _state = MutableStateFlow<FavoriteState>(FavoriteState.Loading)
     val state get() = _state.asStateFlow()
 
-    private fun getFavoriteRecipe() = viewModelScope.launch{
+    fun getFavoriteRecipe() = viewModelScope.launch{
         try {
             getRecipeFavoriteListUseCase().collect {
+                Log.d("TAG", "Найдено -> $it")
                 _state.value = FavoriteState.RecipeList(it)
             }
         } catch (e: NotFoundRecipesException){
+            Log.d("TAG", "Не найдено")
             _state.value = FavoriteState.ErrorRecipe
         }
     }

@@ -25,7 +25,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
     private val recipeAdapter by lazy { RecipeAdapter() }
 
     override fun observeViewModel(){
-
+        viewModel.getFavoriteRecipe()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 with(binding){

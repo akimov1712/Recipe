@@ -56,28 +56,28 @@ class RecipeRepositoryImpl @Inject constructor(
                 val stepRecipeList = mutableListOf<Pair<String, String>>()
 
                 val doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
+                    .userAgent(USER_AGENT)
                     .get()
 
-                val name = doc.select(".emotion-gl52ge").text()
-                val category = doc.select("li[itemprop=\"itemListElement\"]")[1].select("meta[itemprop=\"name\"]").attr("content")
-                val time = doc.select(".emotion-my9yfq").text()
-                val countPortion = doc.select(".emotion-1047m5l").text()
-                val kkal = doc.select("span[itemprop=\"calories\"]").text()
-                val fats = doc.select("span[itemprop=\"fatContent\"]").text()
-                val proteins = doc.select("span[itemprop=\"proteinContent\"]").text()
-                val carb = doc.select("span[itemprop=\"carbohydrateContent\"]").text()
+                val name = doc.select(CSS_NAME).text()
+                val category = doc.select(CSS_CATEGORY)[1].select(CSS_CATEGORY_ITEM).attr("content")
+                val time = doc.select(CSS_TIME).text()
+                val countPortion = doc.select(CSS_COUNT_PORTION).text()
+                val kkal = doc.select(CSS_KKAL).text()
+                val fats = doc.select(CSS_FATS).text()
+                val proteins = doc.select(CSS_PROTEINS).text()
+                val carb = doc.select(CSS_CARB).text()
 
-                doc.select(".emotion-7yevpr").forEach {
-                    val name = it.select("span[itemprop=\"recipeIngredient\"]").text()
-                    var count = it.select(".emotion-bsdd3p").text()
+                doc.select(CSS_INGR).forEach {
+                    val name = it.select(CSS_INGR_NAME).text()
+                    var count = it.select(CSS_INGR_COUNT).text()
                     if (count.isNullOrBlank()) count = "По вкусу"
                     ingrList.add(Pair(name, count))
                 }
 
-                doc.select("div[itemprop=\"recipeInstructions\"]").forEach {
-                    val descr = it.select(".emotion-wdt5in").text()
-                    val image = it.select(".emotion-0").attr("src")
+                doc.select(CSS_STEP).forEach {
+                    val descr = it.select(CSS_STEP_DESCR).text()
+                    val image = it.select(CSS_STEP_IMAGE).attr("src")
                     stepRecipeList.add(Pair(descr, image))
                 }
 
@@ -91,8 +91,34 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     private fun checkEmptyOrMapListToEntity(list: List<RecipeDbEntity>): List<RecipeEntity> {
-        if (list.isEmpty()) throw NotFoundRecipesException()
+        if (list.isEmpty()) {
+            throw NotFoundRecipesException()
+        }
         return list.map { it.toEntity() }
+    }
+
+    companion object{
+
+        private const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+
+        private const val CSS_NAME = ".emotion-gl52ge"
+        private const val CSS_CATEGORY = "li[itemprop=\"itemListElement\"]"
+        private const val CSS_CATEGORY_ITEM = "meta[itemprop=\"name\"]"
+        private const val CSS_TIME = ".emotion-my9yfq"
+        private const val CSS_COUNT_PORTION = ".emotion-1047m5l"
+        private const val CSS_KKAL = "span[itemprop=\"calories\"]"
+        private const val CSS_FATS = "span[itemprop=\"fatContent\"]"
+        private const val CSS_PROTEINS = "span[itemprop=\"proteinContent\"]"
+        private const val CSS_CARB = "span[itemprop=\"carbohydrateContent\"]"
+
+        private const val CSS_INGR = ".emotion-7yevpr"
+        private const val CSS_INGR_NAME = "span[itemprop=\"recipeIngredient\"]"
+        private const val CSS_INGR_COUNT = ".emotion-bsdd3p"
+
+        private const val CSS_STEP = "div[itemprop=\"recipeInstructions\"]"
+        private const val CSS_STEP_DESCR = ".emotion-wdt5in"
+        private const val CSS_STEP_IMAGE = ".emotion-0"
+
     }
 
 }
