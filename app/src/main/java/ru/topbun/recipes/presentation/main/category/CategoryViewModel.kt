@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.NotFoundRecipesException
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeListForCategoryUseCase
@@ -21,13 +22,16 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow<CategoryState>(CategoryState.Loading)
     val state get() = _state.asStateFlow()
 
-    fun getRecipeByCategory(category: String){
-        viewModelScope.launch{
+    fun getRecipeByCategory(category: String) = viewModelScope.launch{
+        try {
             getRecipeListForCategoryUseCase(category).collect {
                 _state.emit(CategoryState.RecipeList(it))
             }
+        }catch (e: NotFoundRecipesException){
+            _state.value = CategoryState.RecipeError
         }
     }
+
 
 
     fun updateFavoriteRecipe(id: Int) {

@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityDetailRecipeBinding
-import ru.topbun.recipes.domain.entity.DetailRecipeModel
+import ru.topbun.recipes.domain.entity.DetailRecipeEntity
 
 @AndroidEntryPoint
 class DetailRecipeActivity : AppCompatActivity() {
@@ -133,7 +133,7 @@ class DetailRecipeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupViewPager(detailRecipe: DetailRecipeModel) {
+    private fun setupViewPager(detailRecipe: DetailRecipeEntity) {
         val ingrFragment = IngredientsFragment.getInstance(detailRecipe)
         val stepFragment = StepRecipeFragment.getInstance(detailRecipe)
         val listFragment = listOf(ingrFragment, stepFragment)

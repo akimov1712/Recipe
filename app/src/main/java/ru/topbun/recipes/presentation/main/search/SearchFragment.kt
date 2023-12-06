@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentSearchBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
-import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint

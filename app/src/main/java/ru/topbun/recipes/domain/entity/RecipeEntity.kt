@@ -1,12 +1,9 @@
 package ru.topbun.recipes.domain.entity
 
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "recipes")
-data class RecipeModel(
-    @PrimaryKey
+data class RecipeEntity(
     val id: Int,
     val name: String,
     val category: String,
@@ -15,5 +12,5 @@ data class RecipeModel(
     val countIngredients: String,
     val countPortions: String,
     val urlFullRecipe: String,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean
 )

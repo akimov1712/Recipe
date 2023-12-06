@@ -1,28 +1,55 @@
 package ru.topbun.recipes.data.repository
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import org.jsoup.Jsoup
-import ru.topbun.recipes.data.database.RecipeDao
-import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.domain.entity.RecipeModel
+import ru.topbun.recipes.data.sources.database.RecipeDao
+import ru.topbun.recipes.data.sources.database.RecipeDbEntity
+import ru.topbun.recipes.domain.ConnectException
+import ru.topbun.recipes.domain.NotFoundRecipesException
+import ru.topbun.recipes.domain.entity.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.RecipeEntity
 import ru.topbun.recipes.domain.repository.RecipeRepository
 import java.io.IOException
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao
 ): RecipeRepository {
 
-    override fun getListFavoriteRecipe() = recipeDao.getListFavoriteRecipes()
-    override fun getRecipe(query: String) = recipeDao.getRecipe(query)
-    override fun getRecipeListForCategory(category: String) = recipeDao.getListRecipesForCategory(category)
-    override suspend fun getRecipeForId(id: Int) = recipeDao.getRecipeForId(id)
-    override suspend fun addRecipe(recipe: RecipeModel) { recipeDao.addRecipe(recipe) }
+    override fun getListFavoriteRecipe(): Flow<List<RecipeEntity>> {
+         return recipeDao.getListFavoriteRecipes().map{ list ->
+             checkEmptyOrMapListToEntity(list)
+         }
+    }
 
-    override suspend fun getDetailRecipe(url: String): DetailRecipeModel? {
+    override fun getRecipe(query: String): Flow<List<RecipeEntity>> {
+        return recipeDao.getRecipe(query).map{ list ->
+            checkEmptyOrMapListToEntity(list)
+        }
+    }
+
+    override fun getRecipeListForCategory(category: String): Flow<List<RecipeEntity>> {
+        return recipeDao.getListRecipesForCategory(category).map{ list ->
+            checkEmptyOrMapListToEntity(list)
+        }
+    }
+
+    override suspend fun getRecipeForId(id: Int): RecipeEntity {
+        return recipeDao.getRecipeForId(id).toEntity()
+    }
+
+    override suspend fun addRecipe(recipe: RecipeEntity) {
+        recipeDao.addRecipe(RecipeDbEntity.fromEntity(recipe))
+    }
+
+    override suspend fun getDetailRecipe(url: String): DetailRecipeEntity {
         return try {
             val result = CoroutineScope(Dispatchers.IO).async {
                 val ingrList = mutableListOf<Pair<String, String>>()
@@ -54,13 +81,18 @@ class RecipeRepositoryImpl @Inject constructor(
                     stepRecipeList.add(Pair(descr, image))
                 }
 
-                DetailRecipeModel(name, category, time, countPortion, kkal, fats, proteins, carb, ingrList, stepRecipeList)
+                DetailRecipeEntity(name, category, time, countPortion, kkal, fats, proteins, carb, ingrList, stepRecipeList)
             }
 
             return result.await()
         } catch (e: IOException) {
-            null
+            throw ConnectException()
         }
+    }
+
+    private fun checkEmptyOrMapListToEntity(list: List<RecipeDbEntity>): List<RecipeEntity> {
+        if (list.isEmpty()) throw NotFoundRecipesException()
+        return list.map { it.toEntity() }
     }
 
 }

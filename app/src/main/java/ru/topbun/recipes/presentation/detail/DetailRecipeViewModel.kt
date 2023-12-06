@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.ConnectException
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetDetailRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
@@ -23,10 +24,14 @@ class DetailRecipeViewModel @Inject constructor(
 
     fun getDetailRecipe(url: String) = viewModelScope.launch {
         _state.value = DetailRecipeState.Loading
-        val recipe = getDetailRecipeUseCase(url)
-        recipe?.let { _state.value = DetailRecipeState.DetailRecipe(it) } ?: run {
-            _state.value = DetailRecipeState.ErrorGetDetailRecipe
+        try {
+            val recipe = getDetailRecipeUseCase(url)
+            _state.value = DetailRecipeState.DetailRecipe(recipe)
+        } catch (e: ConnectException){
+        _state.value = DetailRecipeState.ErrorGetDetailRecipe
         }
+
+
     }
 
     fun getRecipe(recipeId: Int) = viewModelScope.launch {

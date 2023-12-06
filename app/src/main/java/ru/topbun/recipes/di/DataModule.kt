@@ -1,8 +1,8 @@
 package ru.topbun.recipes.di
 
 import android.app.Application
-import ru.topbun.recipes.data.database.AppDatabase
-import ru.topbun.recipes.data.database.RecipeDao
+import ru.topbun.recipes.data.sources.database.AppDatabase
+import ru.topbun.recipes.data.sources.database.RecipeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

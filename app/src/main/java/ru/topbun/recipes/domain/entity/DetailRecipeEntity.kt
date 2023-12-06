@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class DetailRecipeModel(
+data class DetailRecipeEntity(
     val name: String,
     val category: String,
     val time: String,

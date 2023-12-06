@@ -1,17 +1,16 @@
 package ru.topbun.recipes.domain.repository
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
-import ru.topbun.recipes.domain.entity.DetailRecipeModel
-import ru.topbun.recipes.domain.entity.RecipeModel
+import ru.topbun.recipes.domain.entity.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.RecipeEntity
 
 interface RecipeRepository {
 
-    fun getListFavoriteRecipe(): Flow<List<RecipeModel>>
-    fun getRecipeListForCategory(category: String): Flow<List<RecipeModel>>
-    fun getRecipe(query: String): Flow<List<RecipeModel>>
-    suspend fun getRecipeForId(id: Int): RecipeModel
-    suspend fun addRecipe(recipe: RecipeModel)
-    suspend fun getDetailRecipe(url: String): DetailRecipeModel?
+    fun getListFavoriteRecipe(): Flow<List<RecipeEntity>>
+    fun getRecipeListForCategory(category: String): Flow<List<RecipeEntity>>
+    fun getRecipe(query: String): Flow<List<RecipeEntity>>
+    suspend fun getRecipeForId(id: Int): RecipeEntity
+    suspend fun addRecipe(recipe: RecipeEntity)
+    suspend fun getDetailRecipe(url: String): DetailRecipeEntity
 
 }

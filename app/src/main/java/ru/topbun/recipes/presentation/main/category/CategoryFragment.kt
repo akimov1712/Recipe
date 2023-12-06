@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentCategoryBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
 import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
-import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
@@ -104,9 +104,14 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
                                     recipeAdapter.submitList(it.recipeList)
                                     clCategory.visibility = View.GONE
                                     clRecipeList.visibility = View.VISIBLE
+                                    progressBar.visibility = View.INVISIBLE
                                 }
-
-                                else -> {}
+                                is CategoryState.Loading -> {
+                                    progressBar.visibility = View.VISIBLE
+                                }
+                                is CategoryState.RecipeError -> {
+                                    progressBar.visibility = View.INVISIBLE
+                                }
                             }
                         }
                     }

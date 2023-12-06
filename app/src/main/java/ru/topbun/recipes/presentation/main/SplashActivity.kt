@@ -1,18 +1,13 @@
-package ru.topbun.recipes
+package ru.topbun.recipes.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.ActivitySplashBinding
-import ru.topbun.recipes.presentation.main.MainActivity
-import ru.topbun.recipes.presentation.main.home.HomeViewModel
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {

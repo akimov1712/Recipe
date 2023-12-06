@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
-import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
@@ -34,9 +34,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             is HomeState.RecipeList -> {
                                 adapter.submitList(it.recipeList)
                                 progressBar.visibility = View.GONE
+                                tvError.visibility = View.INVISIBLE
                             }
                             is HomeState.Loading -> {
                                 progressBar.visibility = View.VISIBLE
+                                tvError.visibility = View.INVISIBLE
+                            }
+                            is HomeState.ErrorRecipe -> {
+                                tvError.text = it.message
+                                tvError.visibility = View.VISIBLE
                             }
                         }
                     }

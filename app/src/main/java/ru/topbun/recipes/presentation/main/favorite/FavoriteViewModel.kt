@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.NotFoundRecipesException
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetListFavoriteRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
@@ -24,12 +25,12 @@ class FavoriteViewModel @Inject constructor(
     val state get() = _state.asStateFlow()
 
     private fun getFavoriteRecipe() = viewModelScope.launch{
-        getRecipeFavoriteListUseCase().collect() {
-            if (it.isEmpty()) {
-                _state.value = FavoriteState.ErrorRecipe
-            } else {
+        try {
+            getRecipeFavoriteListUseCase().collect {
                 _state.value = FavoriteState.RecipeList(it)
             }
+        } catch (e: NotFoundRecipesException){
+            _state.value = FavoriteState.ErrorRecipe
         }
     }
 

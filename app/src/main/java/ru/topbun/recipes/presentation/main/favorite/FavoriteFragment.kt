@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentFavoriteBinding
 import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
-import ru.topbun.recipes.presentation.main.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
 import ru.topbun.recipes.presentation.main.search.SearchState
 

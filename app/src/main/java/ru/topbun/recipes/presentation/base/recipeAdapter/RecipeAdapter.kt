@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.recipeAdapter
+package ru.topbun.recipes.presentation.base.recipeAdapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ItemRecipeBinding
-import ru.topbun.recipes.domain.entity.RecipeModel
+import ru.topbun.recipes.domain.entity.RecipeEntity
 import javax.inject.Inject
 
 
 class RecipeAdapter @Inject constructor():
-    ListAdapter<RecipeModel, RecipeViewHolder>(RecipeDiffCallback()), View.OnClickListener {
+    ListAdapter<RecipeEntity, RecipeViewHolder>(RecipeDiffCallback()), View.OnClickListener {
 
     var setOnRecipeClickListener: ((String, String, Int) -> Unit)? = null
     var setOnFavoriteClickListener: ((Int) -> Unit)? = null
 
     override fun onClick(v: View?) {
-        val recipe = v?.tag as RecipeModel
+        val recipe = v?.tag as RecipeEntity
         when(v.id){
             R.id.btn_favorite -> setOnFavoriteClickListener?.invoke(recipe.id)
             else -> setOnRecipeClickListener?.invoke(recipe.urlFullRecipe, recipe.preview, recipe.id)

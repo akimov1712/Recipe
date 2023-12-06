@@ -8,10 +8,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.topbun.recipes.domain.NotFoundRecipesException
 import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
 import ru.topbun.recipes.utils.getSeedForShuffle
+import java.lang.Exception
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -26,8 +28,12 @@ class HomeViewModel @Inject constructor(
     val state get() = _state.asStateFlow()
 
     private fun getRecipeList() = viewModelScope.launch{
-        getRecipeUseCase("").collect {
-            _state.value = HomeState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
+        try {
+            getRecipeUseCase("").collect {
+                _state.value = HomeState.RecipeList(it.shuffled(Random(getSeedForShuffle())))
+            }
+        } catch (e: NotFoundRecipesException){
+            _state.value = HomeState.ErrorRecipe("Рецепты не найдены")
         }
     }
 

@@ -1,18 +1,17 @@
-package ru.topbun.recipes.data.database
+package ru.topbun.recipes.data.sources.database
 
 import android.app.Application
-import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.topbun.recipes.domain.entity.RecipeModel
+import ru.topbun.recipes.domain.entity.RecipeEntity
 
 @Database(entities = [
-    RecipeModel::class,
-], version = 9, exportSchema = true,
+    RecipeDbEntity::class,
+], version = 10, exportSchema = true,
     autoMigrations = [
-        AutoMigration(8,9),
+        AutoMigration(9,10),
     ]
 )
 abstract class AppDatabase: RoomDatabase() {

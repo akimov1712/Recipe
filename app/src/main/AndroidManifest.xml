@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".presentation.main.SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true" >
             <intent-filter>
