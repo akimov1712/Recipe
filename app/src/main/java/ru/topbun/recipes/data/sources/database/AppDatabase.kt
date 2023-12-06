@@ -9,9 +9,9 @@ import ru.topbun.recipes.domain.entity.RecipeEntity
 
 @Database(entities = [
     RecipeDbEntity::class,
-], version = 10, exportSchema = true,
+], version = 9, exportSchema = true,
     autoMigrations = [
-        AutoMigration(9,10),
+        AutoMigration(8,9),
     ]
 )
 abstract class AppDatabase: RoomDatabase() {

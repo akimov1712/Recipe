@@ -77,7 +77,7 @@ class RecipeRepositoryImpl @Inject constructor(
 
                 doc.select("div[itemprop=\"recipeInstructions\"]").forEach {
                     val descr = it.select(".emotion-wdt5in").text()
-                    val image = it.select(".emotion-ducv57").attr("src")
+                    val image = it.select(".emotion-0").attr("src")
                     stepRecipeList.add(Pair(descr, image))
                 }
 
