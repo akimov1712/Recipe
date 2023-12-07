@@ -16,8 +16,8 @@ android {
         applicationId "ru.topbun.recipes"
         minSdk 24
         targetSdk 34
-        versionCode 18
-        versionName "3.2"
+        versionCode 21
+        versionName "3.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

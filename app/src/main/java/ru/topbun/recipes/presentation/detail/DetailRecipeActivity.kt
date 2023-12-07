@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ActivityDetailRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.IngrEntity
+import ru.topbun.recipes.domain.entity.StepRecipeEntity
 
 @AndroidEntryPoint
 class DetailRecipeActivity : AppCompatActivity() {
@@ -125,7 +127,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                 }
             }
             btnBack.setOnClickListener {
-                onBackPressed()
+                finish()
             }
             btnFavorite.setOnClickListener {
                 if (recipeId != UNDEFINED_ID) viewModel.updateFavoriteRecipe(recipeId)
@@ -134,8 +136,8 @@ class DetailRecipeActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager(detailRecipe: DetailRecipeEntity) {
-        val ingrFragment = IngredientsFragment.getInstance(detailRecipe)
-        val stepFragment = StepRecipeFragment.getInstance(detailRecipe)
+        val ingrFragment = IngredientsFragment.getInstance(IngrEntity(detailRecipe.ingrList))
+        val stepFragment = StepRecipeFragment.getInstance(StepRecipeEntity(detailRecipe.stepRecipeList))
         val listFragment = listOf(ingrFragment, stepFragment)
         pageAdapter = DetailRecipePageAdapter(listFragment, supportFragmentManager, lifecycle)
         with(binding) {
