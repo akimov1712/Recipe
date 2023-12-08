@@ -1,11 +1,6 @@
 package ru.topbun.recipes.presentation.main.home
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentHomeBinding
-import ru.topbun.recipes.presentation.detail.DetailRecipeActivity
-import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
+import ru.topbun.recipes.presentation.base.OnNavigateToDetailRecipe
+import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
+import ru.topbun.recipes.presentation.main.MainFragment
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -53,12 +49,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun setAdapters() {
-        adapter.setOnRecipeClickListener = {urlFullRecipe, preview, id ->
-            val intent = Intent(requireContext(), DetailRecipeActivity::class.java)
-            intent.putExtra(DetailRecipeActivity.EXTRA_URL, urlFullRecipe)
-            intent.putExtra(DetailRecipeActivity.EXTRA_PREVIEW, preview)
-            intent.putExtra(DetailRecipeActivity.EXTRA_ID, id)
-            startActivity(intent)
+        adapter.setOnRecipeClickListener = {url, preview, id ->
+            val parentFragment = parentFragment?.parentFragment
+            if (parentFragment is OnNavigateToDetailRecipe){
+                (parentFragment as MainFragment).navigateToDetailRecipeFragment(id, url, preview)
+            }
         }
         adapter.setOnFavoriteClickListener = {
             viewModel.updateFavoriteRecipe(it)

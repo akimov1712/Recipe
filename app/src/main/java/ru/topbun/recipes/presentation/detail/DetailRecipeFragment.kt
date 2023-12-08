@@ -1,56 +1,46 @@
 package ru.topbun.recipes.presentation.detail
 
-import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.R
-import ru.topbun.recipes.databinding.ActivityDetailRecipeBinding
+import ru.topbun.recipes.databinding.FragmentDetailRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeEntity
 import ru.topbun.recipes.domain.entity.IngrEntity
 import ru.topbun.recipes.domain.entity.StepRecipeEntity
+import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class DetailRecipeActivity : AppCompatActivity() {
+class DetailRecipeFragment : BaseFragment<FragmentDetailRecipeBinding>(FragmentDetailRecipeBinding::inflate) {
 
-    private val binding by lazy { ActivityDetailRecipeBinding.inflate(layoutInflater) }
-
+    private val args by navArgs<DetailRecipeFragmentArgs>()
     private val viewModel by viewModels<DetailRecipeViewModel>()
 
     private lateinit var pageAdapter: DetailRecipePageAdapter
 
-    private var recipeId = UNDEFINED_ID
-    private var recipeUrl = UNDEFINED_URL
-    private var recipePreview = UNDEFINED_PREVIEW
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        supportActionBar?.hide()
+    override fun setViews() {
+        super.setViews()
+        binding.containerViewPager.isEnabled = false
         getData()
-        setViews()
-        observeViewModel()
+        setListenersInView()
     }
 
     private fun getData() {
-        recipeId = intent.getIntExtra(EXTRA_ID, UNDEFINED_ID)
-        recipeUrl = intent.getStringExtra(EXTRA_URL).toString()
-        recipePreview = intent.getStringExtra(EXTRA_PREVIEW).toString()
-
-        viewModel.getRecipe(recipeId)
-        recipeUrl.let { viewModel.getDetailRecipe(it) }
-        Picasso.get().load(recipePreview).into(binding.ivPreview)
+        viewModel.getRecipe(args.id)
+        viewModel.getDetailRecipe(args.url)
+        Picasso.get().load(args.preview).into(binding.ivPreview)
     }
 
-    private fun observeViewModel() {
+     override fun observeViewModel() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 with(binding) {
@@ -86,6 +76,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                                     clError.visibility = View.VISIBLE
                                 }
 
+
                                 is DetailRecipeState.RecipeItem -> {
                                     if (it.recipe.isFavorite) {
                                         btnFavorite.setBackgroundResource(R.drawable.icon_favorite_enable)
@@ -93,6 +84,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                                         btnFavorite.setBackgroundResource(R.drawable.icon_favorite_disable)
                                     }
                                 }
+
 
                                 is DetailRecipeState.ReplaceIconFavorite -> {
                                     if (it.isFavorite) {
@@ -113,24 +105,17 @@ class DetailRecipeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setViews() {
-        binding.containerViewPager.isEnabled = false
-        setListenersInView()
-    }
-
-    private fun setListenersInView() {
+    override fun setListenersInView() {
         with(binding) {
             btnRetryLoad.setOnClickListener {
                 btnRetryLoad.isEnabled = false
-                intent.getStringExtra(EXTRA_URL)?.let { url ->
-                    viewModel.getDetailRecipe(url)
-                }
+                viewModel.getDetailRecipe(args.url)
             }
             btnBack.setOnClickListener {
-                finish()
+                findNavController().popBackStack()
             }
             btnFavorite.setOnClickListener {
-                if (recipeId != UNDEFINED_ID) viewModel.updateFavoriteRecipe(recipeId)
+                viewModel.updateFavoriteRecipe(args.id)
             }
         }
     }
@@ -139,7 +124,7 @@ class DetailRecipeActivity : AppCompatActivity() {
         val ingrFragment = IngredientsFragment.getInstance(IngrEntity(detailRecipe.ingrList))
         val stepFragment = StepRecipeFragment.getInstance(StepRecipeEntity(detailRecipe.stepRecipeList))
         val listFragment = listOf(ingrFragment, stepFragment)
-        pageAdapter = DetailRecipePageAdapter(listFragment, supportFragmentManager, lifecycle)
+        pageAdapter = DetailRecipePageAdapter(listFragment, childFragmentManager, lifecycle)
         with(binding) {
             containerViewPager.adapter = pageAdapter
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -169,17 +154,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                         tabLayout.selectTab(tabLayout.getTabAt(position))
                     }
                 }
-            })
+            }
+        )
     }
-
-    companion object {
-        const val EXTRA_URL = "extra_url"
-        const val EXTRA_PREVIEW = "extra_preview"
-        const val EXTRA_ID = "extra_id"
-
-        private const val UNDEFINED_URL = "undefined_url"
-        private const val UNDEFINED_PREVIEW = "undefined_preview"
-        private const val UNDEFINED_ID = -1
-    }
-
 }

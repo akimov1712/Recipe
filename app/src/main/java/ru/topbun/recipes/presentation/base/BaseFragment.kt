@@ -38,11 +38,11 @@ abstract class BaseFragment<VB: ViewBinding>(
         setRecyclerViews()
     }
 
-    abstract fun setListenersInView()
-    abstract fun setAdapters()
-    abstract fun setRecyclerViews()
+    open fun setListenersInView(){}
+    open fun setAdapters(){}
+    open fun setRecyclerViews(){}
 
-    abstract fun observeViewModel()
+    open fun observeViewModel(){}
 
     override fun onDestroyView() {
         super.onDestroyView()

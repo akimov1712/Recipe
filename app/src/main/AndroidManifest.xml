@@ -17,23 +17,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.main.SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" >
+            android:name=".presentation.detail.DetailRecipeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.SingleActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".presentation.detail.DetailRecipeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait">
         </activity>
     </application>
 
