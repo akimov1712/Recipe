@@ -4,19 +4,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import org.jsoup.Jsoup
 import ru.topbun.recipes.data.sources.database.RecipeDao
-import ru.topbun.recipes.data.sources.database.RecipeDbEntity
+import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 import ru.topbun.recipes.domain.ConnectException
 import ru.topbun.recipes.domain.NotFoundRecipesException
 import ru.topbun.recipes.domain.entity.DetailRecipeEntity
 import ru.topbun.recipes.domain.entity.RecipeEntity
 import ru.topbun.recipes.domain.repository.RecipeRepository
 import java.io.IOException
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
@@ -25,19 +22,19 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override fun getListFavoriteRecipe(): Flow<List<RecipeEntity>> {
          return recipeDao.getListFavoriteRecipes().map{ list ->
-             checkEmptyOrMapListToEntity(list)
+             checkEmptyOrMapListToListEntity(list)
          }
     }
 
     override fun getRecipe(query: String): Flow<List<RecipeEntity>> {
         return recipeDao.getRecipe(query).map{ list ->
-            checkEmptyOrMapListToEntity(list)
+            checkEmptyOrMapListToListEntity(list)
         }
     }
 
     override fun getRecipeListForCategory(category: String): Flow<List<RecipeEntity>> {
         return recipeDao.getListRecipesForCategory(category).map{ list ->
-            checkEmptyOrMapListToEntity(list)
+            checkEmptyOrMapListToListEntity(list)
         }
     }
 
@@ -81,7 +78,8 @@ class RecipeRepositoryImpl @Inject constructor(
                     stepRecipeList.add(Pair(descr, image))
                 }
 
-                DetailRecipeEntity(name, category, time, countPortion, kkal, fats, proteins, carb, ingrList, stepRecipeList)
+                DetailRecipeEntity(name, category, time, countPortion,
+                    kkal, fats, proteins, carb, ingrList, stepRecipeList)
             }
 
             return result.await()
@@ -90,7 +88,7 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun checkEmptyOrMapListToEntity(list: List<RecipeDbEntity>): List<RecipeEntity> {
+    private fun checkEmptyOrMapListToListEntity(list: List<RecipeDbEntity>): List<RecipeEntity> {
         if (list.isEmpty()) {
             throw NotFoundRecipesException()
         }

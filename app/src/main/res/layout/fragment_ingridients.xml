@@ -10,4 +10,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:listitem="@layout/item_ingr"
-    tools:context=".presentation.detail.IngredientsFragment" />
+    tools:context=".presentation.detailRecipe.IngredientsFragment" />

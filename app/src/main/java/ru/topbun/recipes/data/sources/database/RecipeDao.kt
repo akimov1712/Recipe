@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 
 @Dao
 interface RecipeDao {

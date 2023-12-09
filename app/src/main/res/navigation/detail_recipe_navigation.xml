@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/ingredientsFragment"
-        android:name="ru.topbun.recipes.presentation.detail.IngredientsFragment"
+        android:name="ru.topbun.recipes.presentation.detailRecipe.IngredientsFragment"
         android:label="fragment_ingridients"
         tools:layout="@layout/fragment_ingridients" />
     <fragment
         android:id="@+id/stepRecipeFragment"
-        android:name="ru.topbun.recipes.presentation.detail.StepRecipeFragment"
+        android:name="ru.topbun.recipes.presentation.detailRecipe.StepRecipeFragment"
         android:label="fragment_step_recipe"
         tools:layout="@layout/fragment_step_recipe" />
 </navigation>

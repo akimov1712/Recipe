@@ -15,5 +15,5 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     tools:listitem="@layout/item_step_recipe"
-    tools:context=".presentation.detail.StepRecipeFragment"/>
+    tools:context=".presentation.detailRecipe.StepRecipeFragment"/>
 

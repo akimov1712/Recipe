@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailRecipeFragment"
-        android:name="ru.topbun.recipes.presentation.detail.DetailRecipeFragment"
+        android:name="ru.topbun.recipes.presentation.detailRecipe.DetailRecipeFragment"
         android:label="DetailRecipeFragment" >
         <argument
             android:name="id"

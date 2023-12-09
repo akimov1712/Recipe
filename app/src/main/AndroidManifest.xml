@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.detail.DetailRecipeActivity"
+            android:name=".presentation.detailRecipe.DetailRecipeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

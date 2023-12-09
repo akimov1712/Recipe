@@ -5,7 +5,7 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 
 @Database(entities = [
     RecipeDbEntity::class,
