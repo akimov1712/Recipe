@@ -3,6 +3,7 @@ package ru.topbun.recipes.presentation.main.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -25,13 +26,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private val viewModel by viewModels<SearchViewModel>()
     private val recipeAdapter by lazy { RecipeAdapter() }
 
+    private var query = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData()
     }
 
     private fun getData(){
-        val query = binding.editText.text.toString()
+        Log.d("TAG", query)
         viewModel.getRecipeQuery(query)
     }
 
@@ -112,7 +115,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
 
             override fun afterTextChanged(s: Editable?) {
-                s.toString().let { viewModel.getRecipeQuery(it) }
+                s.toString().let {
+                    query = it
+                    viewModel.getRecipeQuery(query)
+                }
                 if(s?.isNotBlank() == true){
                     binding.btnClear.visibility = View.VISIBLE
                 } else {
