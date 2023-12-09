@@ -78,6 +78,9 @@ class DetailRecipeFragment : BaseFragment<FragmentDetailRecipeBinding>(FragmentD
 
 
                                 is DetailRecipeState.RecipeItem -> {
+                                    val name = it.recipe.name
+                                    tvName.text = name
+                                    tvToolbarName.text = name
                                     if (it.recipe.isFavorite) {
                                         btnFavorite.setBackgroundResource(R.drawable.icon_favorite_enable)
                                     } else {
