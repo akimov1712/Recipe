@@ -1,6 +1,7 @@
 package ru.topbun.recipes.presentation.main.category
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -29,25 +30,14 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     private val recipeAdapter by lazy{ RecipeAdapter() }
     private val categoryAdapter by lazy{ CategoryAdapter() }
 
-    private var choiceCategory = "Категория"
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getDataFromBundle(savedInstanceState)
-    }
-
-    private fun getDataFromBundle(savedInstanceState: Bundle?) {
-        choiceCategory = savedInstanceState?.getString(EXTRA_CATEGORY).toString()
-        binding.tvToolbarRecipeName.text = choiceCategory
-    }
-
     override fun setViews(){
         super.setViews()
         setOnBackPressed()
+        binding.tvToolbarRecipeName.text = viewModel.getCategoryTitle()
     }
 
     private fun setRecipeAdapter(){
-        recipeAdapter.setOnRecipeClickListener = {url, preview, id ->
+        recipeAdapter.setOnRecipeClickListener = { url, preview, id ->
             val parentFragment = parentFragment?.parentFragment
             if (parentFragment is OnNavigateToDetailRecipe){
                 (parentFragment as MainFragment).navigateToDetailRecipeFragment(id, url, preview)
@@ -62,16 +52,11 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     private fun setCategoryAdapter(){
         categoryAdapter.setOnCategoryClickListener = {
             viewModel.getRecipeByCategory(it)
-            choiceCategory = it
-            binding.tvToolbarRecipeName.text = choiceCategory
+            viewModel.saveCategoryTitle(it)
+            binding.tvToolbarRecipeName.text = it
 
         }
         binding.rvCategory.adapter = categoryAdapter
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(EXTRA_CATEGORY, choiceCategory)
     }
 
     override fun setListenersInView(){
@@ -102,7 +87,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
                                     recipeAdapter.submitList(it.recipeList)
                                     clCategory.visibility = View.GONE
                                     clRecipeList.visibility = View.VISIBLE
-                                    progressBar.visibility = View.INVISIBLE
+                                    progressBar.visibility = View.GONE
                                 }
                                 is CategoryState.Loading -> {
                                     progressBar.visibility = View.VISIBLE
@@ -112,6 +97,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
                                 }
                                 is CategoryState.CategoryList -> {
                                     categoryAdapter.submitList(it.categoryList)
+                                    clCategory.visibility = View.VISIBLE
+                                    progressBar.visibility = View.GONE
                                 }
                             }
                         }
@@ -159,7 +146,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     }
 
     companion object{
-        private const val EXTRA_CATEGORY = ""
+        private const val EXTRA_CATEGORY = "extraCategory"
     }
 
 }
