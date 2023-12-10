@@ -1,4 +1,4 @@
-package ru.topbun.recipes.data.repository
+package ru.topbun.recipes.data.repository.recipe
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
