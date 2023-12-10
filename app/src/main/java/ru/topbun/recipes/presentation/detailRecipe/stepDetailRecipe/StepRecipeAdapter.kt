@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import ru.topbun.recipes.databinding.ItemStepRecipeBinding
+import ru.topbun.recipes.domain.entity.StepRecipeEntity
 
-class StepRecipeAdapter: ListAdapter<Pair<String, String>, StepRecipeViewHolder>(StepRecipeDiffCallback()) {
+class StepRecipeAdapter: ListAdapter<StepRecipeEntity, StepRecipeViewHolder>(StepRecipeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepRecipeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,11 +20,11 @@ class StepRecipeAdapter: ListAdapter<Pair<String, String>, StepRecipeViewHolder>
         val item = getItem(position)
         with(holder.binding){
             tvNumberStep.text = "${position + 1}. "
-            tvTextRecipe.text = item.first
-            if (item.second.isEmpty()){
+            tvTextRecipe.text = item.description
+            if (item.imageLink.isEmpty()){
                 ivPreviewRecipe.visibility = View.GONE
             } else {
-                Picasso.get().load(item.second).into(ivPreviewRecipe)
+                Picasso.get().load(item.imageLink).into(ivPreviewRecipe)
             }
         }
     }

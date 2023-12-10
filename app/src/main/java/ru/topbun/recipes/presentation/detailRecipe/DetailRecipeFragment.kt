@@ -16,7 +16,9 @@ import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.FragmentDetailRecipeBinding
 import ru.topbun.recipes.domain.entity.DetailRecipeEntity
 import ru.topbun.recipes.domain.entity.IngrEntity
+import ru.topbun.recipes.domain.entity.IngrListTuple
 import ru.topbun.recipes.domain.entity.StepRecipeEntity
+import ru.topbun.recipes.domain.entity.StepRecipeListTuple
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
@@ -99,6 +101,7 @@ class DetailRecipeFragment : BaseFragment<FragmentDetailRecipeBinding>(FragmentD
 
                                 is DetailRecipeState.Loading -> {
                                     progressBar.visibility = View.VISIBLE
+                                    clError.visibility = View.GONE
                                 }
                             }
                         }
@@ -124,8 +127,8 @@ class DetailRecipeFragment : BaseFragment<FragmentDetailRecipeBinding>(FragmentD
     }
 
     private fun setupViewPager(detailRecipe: DetailRecipeEntity) {
-        val ingrFragment = IngredientsFragment.getInstance(IngrEntity(detailRecipe.ingrList))
-        val stepFragment = StepRecipeFragment.getInstance(StepRecipeEntity(detailRecipe.stepRecipeList))
+        val ingrFragment = IngredientsFragment.getInstance(IngrListTuple(detailRecipe.ingrList))
+        val stepFragment = StepRecipeFragment.getInstance(StepRecipeListTuple(detailRecipe.stepRecipeList))
         val listFragment = listOf(ingrFragment, stepFragment)
         pageAdapter = DetailRecipePageAdapter(listFragment, childFragmentManager, lifecycle)
         with(binding) {

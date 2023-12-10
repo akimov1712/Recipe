@@ -1,9 +1,6 @@
 package ru.topbun.recipes.domain.entity
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class DetailRecipeEntity(
     val name: String,
     val category: String,
@@ -13,6 +10,6 @@ data class DetailRecipeEntity(
     val fats:String,
     val proteins:String,
     val carbohydrates:String,
-    val ingrList: List<Pair<String, String>>,
-    val stepRecipeList: List<Pair<String, String>>,
-): Parcelable
+    val ingrList: List<IngrEntity>,
+    val stepRecipeList: List<StepRecipeEntity>,
+)

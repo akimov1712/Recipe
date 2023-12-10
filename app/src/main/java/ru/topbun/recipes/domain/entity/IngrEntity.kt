@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class IngrEntity(
-    val ingrList: List<Pair<String, String>>,
+    val name: String,
+    val count: String
 ): Parcelable

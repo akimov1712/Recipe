@@ -5,6 +5,7 @@ import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentIngridientsBinding
 import ru.topbun.recipes.domain.entity.IngrEntity
+import ru.topbun.recipes.domain.entity.IngrListTuple
 import ru.topbun.recipes.utils.parcelable
 import ru.topbun.recipes.presentation.detailRecipe.ingrAdapter.IngrAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment
@@ -24,7 +25,7 @@ class IngredientsFragment : BaseFragment<FragmentIngridientsBinding>(FragmentIng
     override fun observeViewModel() {}
 
     private fun getDataFromBundle(){
-        val recipe = arguments?.parcelable<IngrEntity>(BUNDLE_INGR)
+        val recipe = arguments?.parcelable<IngrListTuple>(BUNDLE_INGR)
         adapter.submitList(recipe?.ingrList)
     }
 
@@ -36,7 +37,7 @@ class IngredientsFragment : BaseFragment<FragmentIngridientsBinding>(FragmentIng
 
         private const val BUNDLE_INGR = "bundle_ingr"
 
-        fun getInstance(ingrItem: IngrEntity): IngredientsFragment{
+        fun getInstance(ingrItem: IngrListTuple): IngredientsFragment{
             val fragment = IngredientsFragment()
             fragment.arguments = Bundle().apply {
                 putParcelable(BUNDLE_INGR, ingrItem)

@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class StepRecipeEntity(
-    val stepRecipeList: List<Pair<String, String>>,
+    val description: String,
+    val imageLink: String
 ): Parcelable

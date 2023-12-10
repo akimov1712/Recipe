@@ -11,7 +11,9 @@ import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 import ru.topbun.recipes.domain.ConnectException
 import ru.topbun.recipes.domain.NotFoundRecipesException
 import ru.topbun.recipes.domain.entity.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.IngrEntity
 import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.StepRecipeEntity
 import ru.topbun.recipes.domain.repository.RecipeRepository
 import java.io.IOException
 import javax.inject.Inject
@@ -49,8 +51,8 @@ class RecipeRepositoryImpl @Inject constructor(
     override suspend fun getDetailRecipe(url: String): DetailRecipeEntity {
         return try {
             val result = CoroutineScope(Dispatchers.IO).async {
-                val ingrList = mutableListOf<Pair<String, String>>()
-                val stepRecipeList = mutableListOf<Pair<String, String>>()
+                val ingrList = mutableListOf<IngrEntity>()
+                val stepRecipeList = mutableListOf<StepRecipeEntity>()
 
                 val doc = Jsoup.connect(url)
                     .userAgent(USER_AGENT)
@@ -69,13 +71,13 @@ class RecipeRepositoryImpl @Inject constructor(
                     val name = it.select(CSS_INGR_NAME).text()
                     var count = it.select(CSS_INGR_COUNT).text()
                     if (count.isNullOrBlank()) count = "По вкусу"
-                    ingrList.add(Pair(name, count))
+                    ingrList.add(IngrEntity(name, count))
                 }
 
                 doc.select(CSS_STEP).forEach {
                     val descr = it.select(CSS_STEP_DESCR).text()
                     val image = it.select(CSS_STEP_IMAGE).attr("src")
-                    stepRecipeList.add(Pair(descr, image))
+                    stepRecipeList.add(StepRecipeEntity(descr, image))
                 }
 
                 DetailRecipeEntity(name, category, time, countPortion,
