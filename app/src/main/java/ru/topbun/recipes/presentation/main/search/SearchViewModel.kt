@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.NotFoundRecipesException
-import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
-import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
-import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
+import ru.topbun.recipes.domain.useCases.recipe.AddRecipeUseCase
+import ru.topbun.recipes.domain.useCases.recipe.GetRecipeForIdUseCase
+import ru.topbun.recipes.domain.useCases.recipe.GetRecipeUseCase
 import javax.inject.Inject
 
 @HiltViewModel

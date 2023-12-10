@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.databinding.FragmentStepRecipeBinding
-import ru.topbun.recipes.domain.entity.StepRecipeEntity
-import ru.topbun.recipes.domain.entity.StepRecipeListTuple
+import ru.topbun.recipes.domain.entity.recipe.StepRecipeListTuple
 import ru.topbun.recipes.utils.parcelable
 import ru.topbun.recipes.presentation.detailRecipe.stepDetailRecipe.StepRecipeAdapter
 import ru.topbun.recipes.presentation.base.BaseFragment

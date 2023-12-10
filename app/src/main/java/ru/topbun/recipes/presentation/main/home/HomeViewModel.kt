@@ -1,7 +1,5 @@
 package ru.topbun.recipes.presentation.main.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,11 +7,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.NotFoundRecipesException
-import ru.topbun.recipes.domain.useCases.AddRecipeUseCase
-import ru.topbun.recipes.domain.useCases.GetRecipeForIdUseCase
-import ru.topbun.recipes.domain.useCases.GetRecipeUseCase
+import ru.topbun.recipes.domain.useCases.recipe.AddRecipeUseCase
+import ru.topbun.recipes.domain.useCases.recipe.GetRecipeForIdUseCase
+import ru.topbun.recipes.domain.useCases.recipe.GetRecipeUseCase
 import ru.topbun.recipes.utils.getSeedForShuffle
-import java.lang.Exception
 import javax.inject.Inject
 import kotlin.random.Random
 

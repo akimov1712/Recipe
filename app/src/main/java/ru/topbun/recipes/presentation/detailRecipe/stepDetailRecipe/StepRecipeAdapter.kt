@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import ru.topbun.recipes.databinding.ItemStepRecipeBinding
-import ru.topbun.recipes.domain.entity.StepRecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.StepRecipeEntity
 
 class StepRecipeAdapter: ListAdapter<StepRecipeEntity, StepRecipeViewHolder>(StepRecipeDiffCallback()) {
 

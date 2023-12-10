@@ -1,7 +1,7 @@
 package ru.topbun.recipes.presentation.base.recipeAdapter
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 class RecipeDiffCallback: DiffUtil.ItemCallback<RecipeEntity>() {
 

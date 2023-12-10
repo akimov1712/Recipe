@@ -1,7 +1,7 @@
 package ru.topbun.recipes.presentation.detailRecipe
 
-import ru.topbun.recipes.domain.entity.DetailRecipeEntity
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 sealed class DetailRecipeState{
     data object ErrorGetDetailRecipe: DetailRecipeState()

@@ -60,7 +60,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     }
 
     private fun setCategoryAdapter(){
-        categoryAdapter.submitList(getCategoryList())
         categoryAdapter.setOnCategoryClickListener = {
             viewModel.getRecipeByCategory(it)
             choiceCategory = it
@@ -111,6 +110,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
                                 is CategoryState.RecipeError -> {
                                     progressBar.visibility = View.INVISIBLE
                                 }
+                                is CategoryState.CategoryList -> {
+                                    categoryAdapter.submitList(it.categoryList)
+                                }
                             }
                         }
                     }
@@ -138,24 +140,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
                 }
             })
         }
-    }
-
-    private fun getCategoryList(): List<Pair<String, String>>{
-        val categoryList = mutableListOf<Pair<String, String>>()
-        categoryList.add(Pair("Основные блюда","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/140802212008/160519080709/p_O.jpg.webp"))
-        categoryList.add(Pair("Завтраки","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120213175531/180415114517/p_O.jpg.webp"))
-        categoryList.add(Pair("Выпечка и десерты","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/150615095301/150618125006/p_O.jpg.webp"))
-        categoryList.add(Pair("Паста и пицца","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120213175134/1202131752241/p_O.jpg.webp"))
-        categoryList.add(Pair("Салаты","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/130725133817/190726123035/p_O.jpg.webp"))
-        categoryList.add(Pair("Закуски","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/121017153819/151024131131/p_O.jpg.webp"))
-        categoryList.add(Pair("Супы","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120213181135/130318133553/p_O.jpg.webp"))
-        categoryList.add(Pair("Сэндвичи","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/130829212936/130904171008/p_O.jpg.webp"))
-        categoryList.add(Pair("Ризотто","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/160822164559/160901074921/p_O.jpg.webp"))
-        categoryList.add(Pair("Соусы и маринады","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/150819165228/150828142745/p_O.jpg.webp"))
-        categoryList.add(Pair("Напитки","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120214125404/180820205059/p_O.jpg.webp"))
-        categoryList.add(Pair("Заготовки","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/170223141144/210902152756/p_O.jpg.webp"))
-        categoryList.add(Pair("Бульоны","https://eda.ru/img/eda/c180x180/s1.eda.ru/StaticContent/Photos/120214131251/140824234958/p_O.jpg.webp"))
-        return categoryList
     }
 
     private fun setOnBackPressed() {

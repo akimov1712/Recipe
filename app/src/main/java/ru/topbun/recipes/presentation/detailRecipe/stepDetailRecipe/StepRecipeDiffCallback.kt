@@ -1,7 +1,7 @@
 package ru.topbun.recipes.presentation.detailRecipe.stepDetailRecipe
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.topbun.recipes.domain.entity.StepRecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.StepRecipeEntity
 
 class StepRecipeDiffCallback: DiffUtil.ItemCallback<StepRecipeEntity>() {
 

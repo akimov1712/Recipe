@@ -1,6 +1,6 @@
 package ru.topbun.recipes.presentation.main.favorite
 
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 sealed class FavoriteState{
 

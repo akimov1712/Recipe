@@ -2,11 +2,12 @@ package ru.topbun.recipes.di
 
 import android.app.Application
 import ru.topbun.recipes.data.sources.database.AppDatabase
-import ru.topbun.recipes.data.sources.database.RecipeDao
+import ru.topbun.recipes.data.sources.database.dao.RecipeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.topbun.recipes.data.sources.database.dao.CategoryDao
 import javax.inject.Singleton
 
 @Module
@@ -17,8 +18,14 @@ interface DataModule {
 
         @Provides
         @Singleton
-        fun provideDao(application: Application): RecipeDao {
-            return AppDatabase.getInstance(application).dao()
+        fun provideRecipeDao(application: Application): RecipeDao {
+            return AppDatabase.getInstance(application).recipeDao()
+        }
+
+        @Provides
+        @Singleton
+        fun provideCategoryDao(application: Application): CategoryDao {
+            return AppDatabase.getInstance(application).categoryDao()
         }
 
     }

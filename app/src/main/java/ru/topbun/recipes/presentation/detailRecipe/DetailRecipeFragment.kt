@@ -14,11 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.FragmentDetailRecipeBinding
-import ru.topbun.recipes.domain.entity.DetailRecipeEntity
-import ru.topbun.recipes.domain.entity.IngrEntity
-import ru.topbun.recipes.domain.entity.IngrListTuple
-import ru.topbun.recipes.domain.entity.StepRecipeEntity
-import ru.topbun.recipes.domain.entity.StepRecipeListTuple
+import ru.topbun.recipes.domain.entity.recipe.DetailRecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.IngrListTuple
+import ru.topbun.recipes.domain.entity.recipe.StepRecipeListTuple
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint

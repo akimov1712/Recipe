@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.topbun.recipes.databinding.ItemIngrBinding
-import ru.topbun.recipes.domain.entity.IngrEntity
+import ru.topbun.recipes.domain.entity.recipe.IngrEntity
 
 class IngrAdapter: ListAdapter<IngrEntity, IngrViewHolder>(IngrDiffCallback()) {
 

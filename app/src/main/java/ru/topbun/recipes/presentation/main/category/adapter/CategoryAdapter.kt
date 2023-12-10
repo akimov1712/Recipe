@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import ru.topbun.recipes.databinding.ItemCategoryBinding
+import ru.topbun.recipes.domain.entity.category.CategoryEntity
 
-class CategoryAdapter: ListAdapter<Pair<String, String>, CategoryViewHolder>(CategoryDiffCallback()) {
+class CategoryAdapter: ListAdapter<CategoryEntity, CategoryViewHolder>(CategoryDiffCallback()) {
 
     var setOnCategoryClickListener: ((String) -> Unit)? = null
 
@@ -19,10 +20,10 @@ class CategoryAdapter: ListAdapter<Pair<String, String>, CategoryViewHolder>(Cat
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val item = getItem(position)
         with(holder.binding){
-            tvNameCategory.text = item.first
-            Picasso.get().load(item.second).into(ivPreview)
+            tvNameCategory.text = item.name
+            Picasso.get().load(item.imageLink).into(ivPreview)
             holder.itemView.setOnClickListener {
-                setOnCategoryClickListener?.invoke(item.first)
+                setOnCategoryClickListener?.invoke(item.name)
             }
         }
 

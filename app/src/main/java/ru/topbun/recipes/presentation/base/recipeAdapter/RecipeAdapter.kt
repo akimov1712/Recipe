@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.ItemRecipeBinding
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 import javax.inject.Inject
 
 

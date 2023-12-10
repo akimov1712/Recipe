@@ -2,7 +2,7 @@ package ru.topbun.recipes.data.sources.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 @Entity(tableName = "recipes")
 data class RecipeDbEntity(

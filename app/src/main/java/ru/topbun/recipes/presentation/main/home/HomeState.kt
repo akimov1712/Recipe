@@ -1,6 +1,6 @@
 package ru.topbun.recipes.presentation.main.home
 
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 sealed class HomeState{
     class RecipeList(val recipeList: List<RecipeEntity>): HomeState()

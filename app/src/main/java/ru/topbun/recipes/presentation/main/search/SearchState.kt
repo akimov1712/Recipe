@@ -1,6 +1,6 @@
 package ru.topbun.recipes.presentation.main.search
 
-import ru.topbun.recipes.domain.entity.RecipeEntity
+import ru.topbun.recipes.domain.entity.recipe.RecipeEntity
 
 sealed class SearchState{
 

@@ -5,10 +5,14 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ru.topbun.recipes.data.sources.database.dao.CategoryDao
+import ru.topbun.recipes.data.sources.database.dao.RecipeDao
+import ru.topbun.recipes.data.sources.database.entity.CategoryDbEntity
 import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 
 @Database(entities = [
     RecipeDbEntity::class,
+    CategoryDbEntity::class
 ], version = 9, exportSchema = true,
     autoMigrations = [
         AutoMigration(8,9),
@@ -16,7 +20,8 @@ import ru.topbun.recipes.data.sources.database.entity.RecipeDbEntity
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun dao(): RecipeDao
+    abstract fun recipeDao(): RecipeDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null

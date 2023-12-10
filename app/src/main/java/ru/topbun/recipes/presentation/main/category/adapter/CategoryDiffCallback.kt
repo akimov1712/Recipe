@@ -1,14 +1,15 @@
 package ru.topbun.recipes.presentation.main.category.adapter
 
 import androidx.recyclerview.widget.DiffUtil
+import ru.topbun.recipes.domain.entity.category.CategoryEntity
 
-class CategoryDiffCallback: DiffUtil.ItemCallback<Pair<String, String>>() {
+class CategoryDiffCallback: DiffUtil.ItemCallback<CategoryEntity>() {
 
-    override fun areItemsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
+    override fun areItemsTheSame(oldItem: CategoryEntity, newItem: CategoryEntity): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
+    override fun areContentsTheSame(oldItem: CategoryEntity, newItem: CategoryEntity): Boolean {
         return oldItem == newItem
     }
 }
