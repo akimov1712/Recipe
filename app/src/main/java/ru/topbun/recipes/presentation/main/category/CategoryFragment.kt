@@ -1,7 +1,5 @@
 package ru.topbun.recipes.presentation.main.category
 
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -9,19 +7,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.topbun.recipes.R
 import ru.topbun.recipes.databinding.FragmentCategoryBinding
 import ru.topbun.recipes.presentation.base.BaseFragment
-import ru.topbun.recipes.presentation.base.OnNavigateToDetailRecipe
 import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
-import ru.topbun.recipes.presentation.main.MainFragment
+import ru.topbun.recipes.presentation.main.MainFragmentDirections
 import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
+import ru.topbun.recipes.utils.findTopNavController
 
 @AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryBinding::inflate) {
@@ -38,10 +33,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
 
     private fun setRecipeAdapter(){
         recipeAdapter.setOnRecipeClickListener = { url, preview, id ->
-            val parentFragment = parentFragment?.parentFragment
-            if (parentFragment is OnNavigateToDetailRecipe){
-                (parentFragment as MainFragment).navigateToDetailRecipeFragment(id, url, preview)
-            }
+            findTopNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
+            )
         }
         recipeAdapter.setOnFavoriteClickListener = {
             viewModel.updateFavoriteRecipe(it)

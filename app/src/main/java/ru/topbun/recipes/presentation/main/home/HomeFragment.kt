@@ -11,9 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.base.BaseFragment
-import ru.topbun.recipes.presentation.base.OnNavigateToDetailRecipe
 import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
-import ru.topbun.recipes.presentation.main.MainFragment
+import ru.topbun.recipes.presentation.main.MainFragmentDirections
+import ru.topbun.recipes.utils.findTopNavController
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -50,10 +50,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun setAdapters() {
         adapter.setOnRecipeClickListener = {url, preview, id ->
-            val parentFragment = parentFragment?.parentFragment
-            if (parentFragment is OnNavigateToDetailRecipe){
-                (parentFragment as MainFragment).navigateToDetailRecipeFragment(id, url, preview)
-            }
+            findTopNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
+            )
         }
         adapter.setOnFavoriteClickListener = {
             viewModel.updateFavoriteRecipe(it)
