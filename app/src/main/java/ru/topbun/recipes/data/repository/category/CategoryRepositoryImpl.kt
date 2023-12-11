@@ -1,4 +1,4 @@
-package ru.topbun.recipes.data.repository
+package ru.topbun.recipes.data.repository.category
 
 import kotlinx.coroutines.flow.map
 import ru.topbun.recipes.data.sources.database.dao.CategoryDao
