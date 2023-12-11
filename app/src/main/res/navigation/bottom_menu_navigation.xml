@@ -2,19 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home_navigation">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="ru.topbun.recipes.presentation.main.home.HomeFragment" />
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="ru.topbun.recipes.presentation.main.category.CategoryFragment" />
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="ru.topbun.recipes.presentation.main.favorite.FavoriteFragment" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="ru.topbun.recipes.presentation.main.search.SearchFragment" />
+
+    <include app:graph="@navigation/home_navigation" />
+    <include app:graph="@navigation/category_navigation" />
+    <include app:graph="@navigation/favorite_navigation" />
+    <include app:graph="@navigation/search_navigation" />
 
 </navigation>

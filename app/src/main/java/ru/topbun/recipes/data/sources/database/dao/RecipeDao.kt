@@ -26,8 +26,8 @@ interface RecipeDao {
             "    WHEN preview = '' THEN 3 " +
             "    ELSE 0 " +
             "  END " +
-            "LIMIT :limit OFFSET :offset;")
-    fun getRecipe(query: String, limit: Int, offset: Int): List<RecipeDbEntity>
+            "")
+    fun getRecipe(query: String): Flow<List<RecipeDbEntity>>
 
     @Query("SELECT * FROM recipes WHERE id=:id LIMIT 1")
     suspend fun getRecipeForId(id: Int): RecipeDbEntity
