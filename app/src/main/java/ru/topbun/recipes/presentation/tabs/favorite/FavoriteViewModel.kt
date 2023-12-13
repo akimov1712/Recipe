@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.favorite
+package ru.topbun.recipes.presentation.tabs.favorite
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="ru.topbun.recipes.presentation.main.favorite.FavoriteFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.favorite.FavoriteFragment"
         android:label="FavoriteFragment" />
 </navigation>

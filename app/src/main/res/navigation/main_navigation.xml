@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="ru.topbun.recipes.presentation.main.MainFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.TabsFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_tabs" >
         <action
             android:id="@+id/action_mainFragment_to_detailRecipeFragment"
             app:destination="@id/detailRecipeFragment"

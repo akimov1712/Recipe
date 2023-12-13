@@ -1,16 +1,14 @@
-package ru.topbun.recipes.presentation.main
+package ru.topbun.recipes.presentation.tabs
 
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.topbun.recipes.R
-import ru.topbun.recipes.databinding.FragmentMainBinding
+import ru.topbun.recipes.databinding.FragmentTabsBinding
 import ru.topbun.recipes.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class MainFragment :BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate){
+class TabsFragment :BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::inflate){
 
     override fun setViews() {
         super.setViews()

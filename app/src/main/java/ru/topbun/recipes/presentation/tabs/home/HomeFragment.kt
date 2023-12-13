@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.home
+package ru.topbun.recipes.presentation.tabs.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentHomeBinding
 import ru.topbun.recipes.presentation.base.BaseFragment
 import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
-import ru.topbun.recipes.presentation.main.MainFragmentDirections
+import ru.topbun.recipes.presentation.tabs.TabsFragmentDirections
 import ru.topbun.recipes.utils.findTopNavController
 
 @AndroidEntryPoint
@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun setAdapters() {
         adapter.setOnRecipeClickListener = {url, preview, id ->
             findTopNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
+                TabsFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
             )
         }
         adapter.setOnFavoriteClickListener = {

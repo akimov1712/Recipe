@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="ru.topbun.recipes.presentation.main.category.CategoryFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.category.CategoryFragment"
         android:label="CategoryFragment" />
 </navigation>

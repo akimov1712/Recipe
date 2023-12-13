@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="ru.topbun.recipes.presentation.main.search.SearchFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.search.SearchFragment"
         android:label="SearchFragment" />
 
 </navigation>

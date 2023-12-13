@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.category
+package ru.topbun.recipes.presentation.tabs.category
 
 import android.view.View
 import androidx.activity.addCallback
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import ru.topbun.recipes.databinding.FragmentCategoryBinding
 import ru.topbun.recipes.presentation.base.BaseFragment
 import ru.topbun.recipes.presentation.base.recipeAdapter.RecipeAdapter
-import ru.topbun.recipes.presentation.main.MainFragmentDirections
-import ru.topbun.recipes.presentation.main.category.adapter.CategoryAdapter
+import ru.topbun.recipes.presentation.tabs.TabsFragmentDirections
+import ru.topbun.recipes.presentation.tabs.category.adapter.CategoryAdapter
 import ru.topbun.recipes.utils.findTopNavController
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     private fun setRecipeAdapter(){
         recipeAdapter.setOnRecipeClickListener = { url, preview, id ->
             findTopNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
+                TabsFragmentDirections.actionMainFragmentToDetailRecipeFragment(id,url, preview)
             )
         }
         recipeAdapter.setOnFavoriteClickListener = {

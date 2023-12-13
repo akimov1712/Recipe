@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ru.topbun.recipes.presentation.main.home.HomeFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.home.HomeFragment"
         android:label="HomeFragment" />
 
 </navigation>

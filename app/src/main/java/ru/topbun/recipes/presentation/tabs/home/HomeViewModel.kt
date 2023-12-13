@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.home
+package ru.topbun.recipes.presentation.tabs.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

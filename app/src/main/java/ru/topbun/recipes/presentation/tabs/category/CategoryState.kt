@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.category
+package ru.topbun.recipes.presentation.tabs.category
 
 import ru.topbun.recipes.domain.entity.category.CategoryEntity
 import ru.topbun.recipes.domain.entity.recipe.RecipeEntity

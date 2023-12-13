@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.main.search
+package ru.topbun.recipes.presentation.tabs.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
