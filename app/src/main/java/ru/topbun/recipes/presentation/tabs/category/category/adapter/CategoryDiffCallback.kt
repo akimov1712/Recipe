@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.tabs.category.adapter
+package ru.topbun.recipes.presentation.tabs.category.category.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.topbun.recipes.domain.entity.category.CategoryEntity

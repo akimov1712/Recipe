@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.tabs.category
+package ru.topbun.recipes.presentation.tabs.category.recipeCategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,33 +7,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.topbun.recipes.domain.NotFoundRecipesException
-import ru.topbun.recipes.domain.useCases.category.GetCategoryListUseCase
 import ru.topbun.recipes.domain.useCases.recipe.AddRecipeUseCase
 import ru.topbun.recipes.domain.useCases.recipe.GetRecipeForIdUseCase
 import ru.topbun.recipes.domain.useCases.recipe.GetRecipeListForCategoryUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(
+class RecipeCategoryViewModel @Inject constructor(
     private val addRecipeUseCase: AddRecipeUseCase,
     private val getRecipeForIdUseCase: GetRecipeForIdUseCase,
     private val getRecipeListForCategoryUseCase: GetRecipeListForCategoryUseCase,
-    private val getCategoryListUseCase: GetCategoryListUseCase
-) : ViewModel() {
+): ViewModel() {
 
-    private val _state = MutableStateFlow<CategoryState>(CategoryState.Loading)
+    private val _state = MutableStateFlow<RecipeCategoryState>(RecipeCategoryState.Loading)
     val state get() = _state.asStateFlow()
 
-    private var categoryTitle = "Категория"
-
     fun getRecipeByCategory(category: String) = viewModelScope.launch{
-        _state.value = CategoryState.Loading
+        _state.value = RecipeCategoryState.Loading
         try {
             getRecipeListForCategoryUseCase(category).collect {
-                _state.emit(CategoryState.RecipeList(it))
+                _state.emit(RecipeCategoryState.RecipeList(it))
             }
         }catch (e: NotFoundRecipesException){
-            _state.value = CategoryState.RecipeError
+            _state.value = RecipeCategoryState.RecipeError
         }
     }
 
@@ -44,23 +40,5 @@ class CategoryViewModel @Inject constructor(
             addRecipeUseCase(newRecipe)
         }
     }
-
-     private fun getCategoryList() = viewModelScope.launch {
-         _state.value = CategoryState.Loading
-        getCategoryListUseCase().collect{
-            _state.value = CategoryState.CategoryList(it)
-        }
-    }
-
-    fun saveCategoryTitle(category: String){
-        categoryTitle = category
-    }
-
-    fun getCategoryTitle() = categoryTitle
-
-    init{
-        getCategoryList()
-    }
-
 
 }

@@ -6,6 +6,18 @@
 
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="ru.topbun.recipes.presentation.tabs.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:name="ru.topbun.recipes.presentation.tabs.category.category.CategoryFragment"
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_recipeCategoryFragment"
+            app:destination="@id/recipeCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeCategoryFragment"
+        android:name="ru.topbun.recipes.presentation.tabs.category.recipeCategory.RecipeCategoryFragment"
+        android:label="RecipeCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>

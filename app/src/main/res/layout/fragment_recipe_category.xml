@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_category"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/cl_recipeList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -30,23 +30,34 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbarChoiceCategory"
+        android:id="@+id/toolbarRecipeList"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:elevation="4dp"
         android:elevation="4dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="15dp"
+            android:background="@color/transparent"
+            android:src="@drawable/icon_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/tv_toolbar_recipe_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_bold"
             android:maxLength="30"
             android:singleLine="true"
-            android:text="Выберите категорию"
+            android:text="Категория"
             android:textColor="@color/black"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,19 +68,29 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_category"
+        android:id="@+id/rv_recipe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="20dp"
-        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarChoiceCategory"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRecipeList"
         app:spanCount="2"
-        tools:listitem="@layout/item_category" />
+        tools:listitem="@layout/item_recipe" />
+
+
+    <ImageButton
+        android:id="@+id/btn_top"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/background_button_top"
+        android:elevation="4dp"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/icon_top"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

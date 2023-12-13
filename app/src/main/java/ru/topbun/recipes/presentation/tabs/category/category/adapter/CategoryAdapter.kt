@@ -1,4 +1,4 @@
-package ru.topbun.recipes.presentation.tabs.category.adapter
+package ru.topbun.recipes.presentation.tabs.category.category.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
