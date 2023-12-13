@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_navigation"
         android:title="Главная"
         android:icon="@drawable/selector_menu_home"/>
 
     <item
-        android:id="@+id/categoryFragment"
+        android:id="@+id/category_navigation"
         android:title="Категории"
         android:icon="@drawable/selector_menu_category"/>
 
     <item
-        android:id="@+id/favoriteFragment"
+        android:id="@+id/favorite_navigation"
         android:title="Избранное"
         android:icon="@drawable/selector_menu_favorite"/>
 
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/search_navigation"
         android:title="Поиск"
         android:icon="@drawable/selector_menu_search"/>
 
